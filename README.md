@@ -5,6 +5,7 @@
   - Asteroids added
   - Basic scene setup
 ## Iteration 1 - (NOT DONE)
+  - Input manager added
   - Buttons added
   - Menu/UI added
   - Pausing added
