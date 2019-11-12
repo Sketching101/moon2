@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using ShipControllerNS;
 
 public class InteractiveTutorial : MonoBehaviour {
-    public collision_spheres TargetAnchor;
+    public CollisionSphere TargetAnchor;
     public Text[] Texts;
     public ShipController ship;
 

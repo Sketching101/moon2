@@ -7,8 +7,11 @@ public class MusicManager : MonoBehaviour {
 
     public System.Random rng = new System.Random();
 
+    [Header("In-Game Music")]
     public AudioClip[] MusicToShuffle;
+    [Header("Menu Music")]
     public AudioClip YouAreDead;
+    [Header("Music Source")]
     public AudioSource MusicSpeakers;
 
     int musicIdx = 0;
@@ -30,13 +33,14 @@ public class MusicManager : MonoBehaviour {
     void Update () {
 
 
-        if(!playingDead && PullUpMenu.Instance.gameState == PullUpMenu.GameState.Dead)
+        /*if(!playingDead)
         {
             playingDead = true;
             MusicSpeakers.clip = YouAreDead;
             MusicSpeakers.Play();
         }
-        else if (!MusicSpeakers.isPlaying && Music.Count > 0)
+        else */
+        if (!MusicSpeakers.isPlaying && Music.Count > 0)
         {
             MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];
             musicIdx++;

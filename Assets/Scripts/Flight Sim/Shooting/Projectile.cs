@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour {
     public Transform TargetReticle, ReticleHighlight;
     public Transform PlayerEye;
 
-    collision_spheres lastCol;
+    CollisionSphere lastCol;
 
 
     // Use this for initialization
@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour {
         // Does the ray intersect any objects excluding the player layer
         if (Physics.SphereCast(PlayerEye.position, 4, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
-            collision_spheres col = hit.transform.gameObject.GetComponent<collision_spheres>();
+            CollisionSphere col = hit.transform.gameObject.GetComponent<CollisionSphere>();
             if (col != null)
             {
                 col.ToggleHighlight(true);
@@ -126,7 +126,7 @@ public class Projectile : MonoBehaviour {
             else if (RocketTurn < 0)
                 RocketTurn = RocketSpawn.Length - 1;
 
-            Vector3 TargetPos;
+            Transform TargetPos;
 
             Transform SpawnPos = RocketSpawn[RocketTurn];
 

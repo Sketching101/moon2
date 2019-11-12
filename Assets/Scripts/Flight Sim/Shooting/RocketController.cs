@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RocketController : MonoBehaviour {
 
-    public Vector3 TargetPosition;
+    public Transform TargetPosition;
     float time_t = 0;
     float LifeTime = 10;
     public Rigidbody rb;
@@ -20,7 +20,7 @@ public class RocketController : MonoBehaviour {
         time_t += Time.deltaTime;
         if (time_t > LifeTime)
             Destroy(gameObject);
-        if(TargetPosition == Vector3.zero)
+        if(TargetPosition == null)
         {
             return;
         }

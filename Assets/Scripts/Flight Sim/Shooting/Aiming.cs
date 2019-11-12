@@ -9,9 +9,9 @@ public class Aiming : MonoBehaviour {
 
     LayerMask layerMask;
 
-	public Vector3 FireDirectionSecondary(Transform Source, out Vector3 TargetPos)
+	public Vector3 FireDirectionSecondary(Transform Source, out Transform TargetPos)
     {
-        int layerMask = 1 << 10;
+        int layerMask = 1 << 8;
 
         Vector3 dir = (TargetReticle.position - PlayerEye.position);
 
@@ -19,11 +19,11 @@ public class Aiming : MonoBehaviour {
         // Does the ray intersect any objects excluding the player layer
         if (Physics.SphereCast(Source.position, 4, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
-            TargetPos = hit.point;
+            TargetPos = hit.transform;
             return (hit.transform.position - Source.position).normalized;
         } else
         {
-            TargetPos = new Vector3();
+            TargetPos = null;
             return Source.forward;
         }
     }
@@ -35,7 +35,7 @@ public class Aiming : MonoBehaviour {
 
     public Vector3 FireDirectionPrimary(Transform Source)
     {
-        int layerMask = 1 << 10;
+        int layerMask = 1 << 8;
 
         Vector3 dir = (TargetReticle.position - PlayerEye.position);
 
