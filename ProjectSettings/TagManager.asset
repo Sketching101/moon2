@@ -9,6 +9,7 @@ TagManager:
   - Grabber
   - bullet
   - CrashCollision
+  - Finger
   layers:
   - Default
   - TransparentFX
