@@ -6,9 +6,19 @@
   - (D) Basic scene setup
 ## Iteration 1 - (NOT DONE)
   - (D) Input manager added
-  - (N) Buttons added
+  - (T) Buttons added
   - (N) Menu/UI added
   - (N) Pausing added
   - (N) Ship arms can be used and holstered
   - (N) Basic enemy object that can die
 ## Iteration 2 - (TBD)
+
+
+
+### Symbols
+#### (T)
+	Needs testing
+#### (N)
+	Not done
+#### (D)
+	Done
