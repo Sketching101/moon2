@@ -11,7 +11,6 @@ public class PlayerPosInit : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         PlayerPos.position = TranslateToPos.position - CameraPos.localPosition;
-        Debug.Log(TranslateToPos.localPosition);
 	}
 
    /* void Update()
