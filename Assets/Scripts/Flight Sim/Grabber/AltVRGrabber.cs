@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ManualControls;
 
 public class AltVRGrabber : MonoBehaviour {
     [SerializeField]
@@ -12,6 +13,7 @@ public class AltVRGrabber : MonoBehaviour {
 
     public Transform HandAnchor;
 
+
 	// Use this for initialization
 	void Start () {
         GrabbableInRange = new List<AltVRGrabbable>();
@@ -19,10 +21,11 @@ public class AltVRGrabber : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        transform.position = HandAnchor.position;
-        
-
+        if (HandAnchor != null)
+        {
+            transform.position = HandAnchor.position;
+            transform.rotation = HandAnchor.rotation;
+        }
 
         if (OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, Controller) && GrabbableInRange.Count > 0)
         {
