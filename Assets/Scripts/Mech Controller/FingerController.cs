@@ -10,25 +10,42 @@ public class FingerController : MonoBehaviour
     [Header("Stats")]
     public float rotationSpeed;
 
-    public bool RotateThis;
-    public int joint;
+    public bool closeFistFlag;
+    public bool openPalmFlag;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) && RotateThis)
+        if (closeFistFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)
             {
-                if(i == joint || joint == -1)
-                    JointPos[i].localRotation = Quaternion.Slerp(JointPos[i].localRotation, Quaternion.Euler(0f, 0f, 90f), rotationSpeed * Time.deltaTime);
+                 JointPos[i].localRotation = Quaternion.Slerp(JointPos[i].localRotation, Quaternion.Euler(0f, 0f, 90f), rotationSpeed * Time.deltaTime);
             }
-        } else
+        } else if(openPalmFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)
             {
                 JointPos[i].localRotation = Quaternion.Slerp(JointPos[i].localRotation, Quaternion.Euler(0f, 0f, 0f), rotationSpeed * Time.deltaTime);
             }
         }
+    }
+
+    public void CloseFist()
+    {
+        openPalmFlag = false;
+        closeFistFlag = true;
+    }
+
+    public void OpenPalm()
+    {
+        openPalmFlag = true;
+        closeFistFlag = false;
+    }
+
+    public void FreezeHand()
+    {
+        openPalmFlag = false;
+        closeFistFlag = false;
     }
 }
