@@ -6,7 +6,7 @@
   - (D) Basic scene setup
 ## Iteration 1 - (NOT DONE)
   - (D) Input manager added
-  - (T) Buttons added
+  - (D) Buttons added
   - (N) Menu/UI added
   - (N) Pausing added
   - (N) Ship arms can be used and holstered
