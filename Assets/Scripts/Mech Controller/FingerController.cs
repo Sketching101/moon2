@@ -16,6 +16,13 @@ public class FingerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            if (closeFistFlag)
+                OpenPalm();
+            else
+                CloseFist();
+        }
         if (closeFistFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)
