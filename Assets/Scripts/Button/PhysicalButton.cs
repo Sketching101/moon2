@@ -11,7 +11,11 @@ namespace ManualControls
         public float y_max = 0;
 
         private Rigidbody rb;
-        private int inCollision = 0;
+        public int inCollision = 0;
+
+        public List<Transform> PushedBy;
+
+        public Transform BufferAnchor;
 
         [Header("Debug")]
         [SerializeField]
@@ -45,6 +49,7 @@ namespace ManualControls
 
         void Awake()
         {
+            PushedBy = new List<Transform>();
             if (rb == null)
                 rb = gameObject.GetComponent<Rigidbody>();
         }
@@ -92,6 +97,11 @@ namespace ManualControls
             if (inCollision == 0)
             {
                 ClampedPos.y += Time.fixedDeltaTime;
+            } else if(PushedBy.Count > 0)
+            {
+                Debug.Log("Pushing");
+                BufferAnchor.position = PushedBy[0].position;
+                ClampedPos.y = BufferAnchor.localPosition.y;
             }
 
             if(ClampedPos.y > y_max)
@@ -104,16 +114,28 @@ namespace ManualControls
             transform.localPosition = ClampedPos;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if(collision.gameObject.tag == "Finger")
+            Debug.Log("Collided with " + other.gameObject.name + ":" + other.gameObject.tag);
+            if(other.gameObject.tag == "Finger")
+            {
                 inCollision++;
+                ButtonPusher Finger = other.gameObject.GetComponent<ButtonPusher>();
+                Debug.Log(other.ClosestPoint(transform.position));
+                Finger.FingerTipAnchor.position = other.ClosestPoint(transform.position);
+                PushedBy.Add(Finger.FingerTipAnchor);
+            }
         }
 
-        private void OnCollisionExit(Collision collision)
+        private void OnTriggerExit(Collider other)
         {
-            if (collision.gameObject.tag == "Finger")
+            Debug.Log("Collision ended with " + other.gameObject.name + ":" + other.gameObject.tag);
+            if (other.gameObject.tag == "Finger")
+            {
+                ButtonPusher Finger = other.gameObject.GetComponent<ButtonPusher>();
+                PushedBy.Remove(Finger.FingerTipAnchor);
                 inCollision--;
+            }
         }
     }
 }

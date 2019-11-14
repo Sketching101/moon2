@@ -16,9 +16,6 @@
 
 
 ### Symbols
-#### (T)
-	Needs testing
-#### (N)
-	Not done
-#### (D)
-	Done
+#### (T) - Needs testing
+#### (N) - Not done
+#### (D) - Done
