@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FingerController : MonoBehaviour
+public class FingerControllerDep : MonoBehaviour
 {
     [Header("Joints")]
     public Transform[] JointPos;
 
-    [Header("Contact")]
-    public OVRInput.RawTouch Touch;
-    public OVRInput.RawNearTouch NTouch;
-    public OVRInput.RawButton OVRBut;
-    
-
     [Header("Stats")]
     public float rotationSpeed;
+
+    [Header("Associated Touch")]
+    public OVRInput.RawTouch Touch;
+    public OVRInput.RawButton Button;
 
     public bool closeFistFlag;
     public bool openPalmFlag;
@@ -22,23 +20,21 @@ public class FingerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OVRInput.Get(OVRBut) || OVRInput.Get(Touch) || OVRInput.Get(NTouch))
+        if (OVRInput.Get(Touch) || OVRInput.Get(Button))
         {
             CloseFist();
-        } else
-        {
-            OpenPalm();
         }
+        else
+            OpenPalm();
 
         // Close/Open Fist
         if (closeFistFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)
             {
-                JointPos[i].localRotation = Quaternion.Slerp(JointPos[i].localRotation, Quaternion.Euler(0f, 0f, 90f), rotationSpeed * Time.deltaTime);
+                 JointPos[i].localRotation = Quaternion.Slerp(JointPos[i].localRotation, Quaternion.Euler(0f, 0f, 90f), rotationSpeed * Time.deltaTime);
             }
-        }
-        else if (openPalmFlag)
+        } else if(openPalmFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)
             {
