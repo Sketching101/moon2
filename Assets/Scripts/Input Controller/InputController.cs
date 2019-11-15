@@ -27,6 +27,19 @@ public class InputController : MonoBehaviour
     [HideInInspector]
     public bool LHTrigger, LHTriggerDown;
 
+    [HideInInspector]
+    public bool LThumbTouch, LThumbTouchDown;
+    [HideInInspector]
+    public bool RThumbTouch, RThumbTouchDown;
+    [HideInInspector]
+    public bool LIndexTouch, LIndexTouchDown;
+    [HideInInspector]
+    public bool RIndexTouch, RIndexTouchDown;
+    [HideInInspector]
+    public bool LMiddleTouch, LMiddleTouchDown;
+    [HideInInspector]
+    public bool RMiddleTouch, RMiddleTouchDown;
+
     void Awake()
     {
         if (Instance == null)
@@ -104,5 +117,72 @@ public class InputController : MonoBehaviour
         {
             LHTriggerDown = button_buf;
         }
+
+        /*[HideInInspector]
+ public bool LThumbTouch, LThumbTouchDown;
+ [HideInInspector]
+ public bool RThumbTouch, RThumbTouchDown;
+ [HideInInspector]
+ public bool LIndexTouch, LIndexTouchDown;
+ [HideInInspector]
+ public bool RIndexTouch, RIndexTouchDown;
+ [HideInInspector]
+ public bool LMiddleTouch, LMiddleTouchDown;
+ [HideInInspector]
+ public bool RMiddleTouch, RMiddleTouchDown;*/
+
+        if ((button_buf = OVRInput.Get(OVRInput.RawTouch.LThumbRest)) != LThumbTouch)
+        {
+            LThumbTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.LThumbRest)) != LThumbTouchDown)
+        {
+            LThumbTouchDown = button_buf;
+        }
+
+        if ((button_buf = OVRInput.Get(OVRInput.RawTouch.RThumbRest)) != RThumbTouch)
+        {
+            RThumbTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.RThumbRest)) != LThumbTouchDown)
+        {
+            RThumbTouchDown = button_buf;
+        }
+
+        if ((button_buf = OVRInput.Get(OVRInput.RawTouch.LIndexTrigger)) != LIndexTouch)
+        {
+            LIndexTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.LIndexTrigger)) != LIndexTouchDown)
+        {
+            LIndexTouch = button_buf;
+        }
+
+        if ((button_buf = OVRInput.Get(OVRInput.RawTouch.RIndexTrigger)) != RIndexTouch)
+        {
+            RIndexTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.RIndexTrigger)) != RIndexTouchDown)
+        {
+            RIndexTouchDown = button_buf;
+        }
+        /*
+        if ((button_buf = OVRInput.Get(OVRInput.Touch.)) != LIndexTouch)
+        {
+            LIndexTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.LIndexTrigger)) != LIndexTouchDown)
+        {
+            LIndexTouch = button_buf;
+        }
+
+        if ((button_buf = OVRInput.Get(OVRInput.RawTouch.RIndexTrigger)) != RIndexTouch)
+        {
+            RIndexTouch = button_buf;
+        }
+        if ((button_buf = OVRInput.GetDown(OVRInput.RawTouch.RIndexTrigger)) != RIndexTouchDown)
+        {
+            RIndexTouchDown = button_buf;
+        }*/
     }
 }

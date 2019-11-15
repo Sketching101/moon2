@@ -23,6 +23,8 @@ public class FingerController : MonoBehaviour
             else
                 CloseFist();
         }
+
+        // Close/Open Fist
         if (closeFistFlag)
         {
             for (int i = 0; i < JointPos.Length; i++)

@@ -11,59 +11,118 @@ public class HandController : MonoBehaviour
     public FingerController RingFinger;
     public FingerController Pinky;
 
+    [Header("Associate Touch Values")]
+
     [Header("Materials")]
-    public Renderer[] Materials;
+    public Material[] Materials;
+
+
+    [Header("Level Based Settings")]
+    public bool StartWHands;
 
     bool coroutine = false;
+
+    bool HandsExist;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        HandsExist = true;
+        float active = HandsExist ? 1 : 0;
+        foreach (Material mat in Materials)
+        {
+            mat.SetFloat("_Arms_Active", active);
+        }
     }
 
-    private void Update()
+    void Update()
     {
-        /* Broken 
-        if(Input.GetKeyDown(KeyCode.D) && !coroutine)
-        {
-            coroutine = true;
-            StartCoroutine(DissolveMeshes());
-        } else if(Input.GetKeyDown(KeyCode.S) && !coroutine)
-        {
-            coroutine = true;
-            StartCoroutine(CreateMeshes());
-        }*/
+
     }
+
+    public bool ToggleHands()
+    {
+        if (!coroutine)
+        {
+            coroutine = true;
+            HandsExist = !HandsExist;
+            StartCoroutine(ToggleDissolution());
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private IEnumerator ToggleDissolution()
+    {
+        foreach (Material mat in Materials)
+        {
+            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
+            mat.SetFloat("_Playing_Flag", 1);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        float active = 0f;
+        if (HandsExist)
+        {
+            active = 1f;
+        }
+
+        foreach (Material mat in Materials)
+        {
+            mat.SetFloat("_Arms_Active", active);
+            mat.SetFloat("_Playing_Flag", 0);
+            yield return null;
+        }
+
+        coroutine = false;
+    }
+
 
     private IEnumerator DissolveMeshes()
     {
-        float dissolve = 0;
-        while (dissolve < 1)
+
+        foreach (Material mat in Materials)
         {
-            dissolve = Mathf.Lerp(dissolve, 1, .1f);
-            foreach (Renderer mat in Materials)
-            {
-                mat.sharedMaterial.SetFloat("_Dissolve", dissolve);
-                yield return null;
-            }
+            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
+            mat.SetFloat("_Playing_Flag", 1);
+            yield return null;
         }
-        yield return null;
+
+        yield return new WaitForSeconds(1f);
+
+        foreach (Material mat in Materials)
+        {
+            mat.SetFloat("_Arms_Active", 0);
+            mat.SetFloat("_Playing_Flag", 0);
+            yield return null;
+        }
+
+        coroutine = false;
     }
 
     private IEnumerator CreateMeshes()
     {
-        float dissolve = 1;
-        while (dissolve > 0)
+        foreach (Material mat in Materials)
         {
-            dissolve = Mathf.Lerp(dissolve, 0, .1f);
-            foreach (Renderer mat in Materials)
-            {
-                mat.sharedMaterial.SetFloat("_Dissolve", dissolve);
-                yield return null;
-            }
+            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
+            mat.SetFloat("_Playing_Flag", 1);
+            yield return null;
         }
-        yield return null;
+
+        yield return new WaitForSeconds(1f);
+
+        foreach (Material mat in Materials)
+        {
+            mat.SetFloat("_Arms_Active", 1);
+            mat.SetFloat("_Playing_Flag", 0);
+            yield return null;
+        }
+
         coroutine = false;
     }
 }
