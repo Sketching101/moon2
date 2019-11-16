@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ManualControls;
-
+/*
 public class HandControllerDep : MonoBehaviour
 {
     [Header("Fingers")]
@@ -12,11 +12,12 @@ public class HandControllerDep : MonoBehaviour
     public FingerController RingFinger;
     public FingerController Pinky;
 
-    [Header("Materials")]
-    public Material[] Materials;
 
     [Header("Level Based Settings")]
     public bool StartWHands;
+
+    [Header("Misc")]
+    public HandState handState;
 
     bool coroutine = false;
 
@@ -26,18 +27,37 @@ public class HandControllerDep : MonoBehaviour
     void Start()
     {
         HandsExist = true;
-        float active = HandsExist ? 1 : 0;
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Arms_Active", active);
-        }
-        
     }
 
     void Update()
     {
+        if(Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.closeFistFlag)
+        {
+            handState = HandState.Fist;
+        } else if(Thumb.openPalmFlag && IndexFinger.openPalmFlag && MiddleFinger.closeFistFlag)
+        {
+            handState = HandState.FingerGun;
+        } else if(Thumb.closeFistFlag && IndexFinger.openPalmFlag && MiddleFinger.closeFistFlag)
+        {
+            if(handState == HandState.FingerGun)
+            {
+
+            }
+            handState = HandState.Point;
+        } else if(Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.openPalmFlag)
+        {
+            handState = HandState.OK;
+        } else if(Thumb.openPalmFlag && IndexFinger.closeFistFlag && MiddleFinger.closeFistFlag)
+        {
+            handState = HandState.ThumbsUp;
+        } else
+        {
+            handState = HandState.Open;
+        }
     }
 
+    // NOT WORKING //
+    /*
     public bool ToggleHands()
     {
         if (!coroutine)
@@ -122,5 +142,5 @@ public class HandControllerDep : MonoBehaviour
         }
 
         coroutine = false;
-    }
-}
+    }*/
+//}

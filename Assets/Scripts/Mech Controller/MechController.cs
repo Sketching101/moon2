@@ -127,7 +127,7 @@ public class MechController : MonoBehaviour
 
     private void MechFixedUpdate()
     {
-        MechTransform.position += MechTransform.forward * Time.deltaTime * speed;
+
     }
 
     ///////////////////////// SHIP CONTROLLER ///////////////////////////

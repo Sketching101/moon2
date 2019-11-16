@@ -32,14 +32,6 @@ public class MusicManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-
-        /*if(!playingDead)
-        {
-            playingDead = true;
-            MusicSpeakers.clip = YouAreDead;
-            MusicSpeakers.Play();
-        }
-        else */
         if (!MusicSpeakers.isPlaying && Music.Count > 0)
         {
             MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];

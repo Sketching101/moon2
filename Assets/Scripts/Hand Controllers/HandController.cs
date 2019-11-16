@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum HandState
+{
+    Fist, Open, FingerGun, ThumbsUp, Point, OK
+}
+
 public class HandController : MonoBehaviour
 {
     [Header("Fingers")]
@@ -11,121 +17,87 @@ public class HandController : MonoBehaviour
     public FingerController RingFinger;
     public FingerController Pinky;
 
-    [Header("Associate Touch Values")]
+    public LaunchHand launchHand;
 
-    [Header("Materials")]
-    public Material[] Materials;
+    public ArmState armState;
 
+    [Header("Hand Objects")]
+    public MechHandgun handGun;
+    public OVRInput.Controller controller;
+
+    [Header("Misc")]
+    public HandState handState;
 
     [Header("Level Based Settings")]
     public bool StartWHands;
 
     bool coroutine = false;
 
-    bool HandsExist;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        /*
-        HandsExist = true;
-        float active = HandsExist ? 1 : 0;
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Arms_Active", active);
-        } */
-    }
-
     void Update()
     {
+        if (!DissolvingHand.Instance.HandsExist)
+            return;
 
-    }
-
-    /*
-
-    public bool ToggleHands()
-    {
-        if (!coroutine)
+        if (Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.closeFistFlag)
         {
-            coroutine = true;
-            HandsExist = !HandsExist;
-            StartCoroutine(ToggleDissolution());
-            return true;
+            handState = HandState.Fist;
+        }
+        else if (Thumb.openPalmFlag && IndexFinger.openPalmFlag && MiddleFinger.closeFistFlag)
+        {
+            handState = HandState.FingerGun;
+        }
+        else if (Thumb.closeFistFlag && IndexFinger.openPalmFlag && MiddleFinger.closeFistFlag)
+        {
+            if (handGun != null && handState == HandState.FingerGun)
+            {
+                handGun.FireGun();
+            }
+            handState = HandState.Point;
+        }
+        else if (Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.openPalmFlag)
+        {
+            handState = HandState.OK;
+        }
+        else if (Thumb.openPalmFlag && IndexFinger.closeFistFlag && MiddleFinger.closeFistFlag)
+        {
+            handState = HandState.ThumbsUp;
         }
         else
         {
-            return false;
+            handState = HandState.Open;
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, controller) && HandState.Fist == handState)
+        {
+            FireHand();
         }
     }
 
-    private IEnumerator ToggleDissolution()
+    private void FireHand()
     {
-        foreach (Material mat in Materials)
+        int layerMask = 1 << 8;
+
+        Vector3 dir = launchHand.transform.right;
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(launchHand.transform.position, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
-            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
-            mat.SetFloat("_Playing_Flag", 1);
-            yield return null;
+            CollisionSphere col = hit.transform.gameObject.GetComponent<CollisionSphere>();
+            if (col != null)
+            {
+                armState = ArmState.Launched;
+                StartCoroutine(launchHand.LaunchArmThread(col.transform));
+            } else
+            {
+                armState = ArmState.Launched;
+                StartCoroutine(launchHand.LaunchArmThread());
+            }
+        } else
+        {
+            armState = ArmState.Launched;
+            StartCoroutine(launchHand.LaunchArmThread());
         }
 
-        yield return new WaitForSeconds(1f);
-
-        float active = 0f;
-        if (HandsExist)
-        {
-            active = 1f;
-        }
-
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Arms_Active", active);
-            mat.SetFloat("_Playing_Flag", 0);
-            yield return null;
-        }
-
-        coroutine = false;
     }
-
-
-    private IEnumerator DissolveMeshes()
-    {
-
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
-            mat.SetFloat("_Playing_Flag", 1);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(1f);
-
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Arms_Active", 0);
-            mat.SetFloat("_Playing_Flag", 0);
-            yield return null;
-        }
-
-        coroutine = false;
-    }
-
-    private IEnumerator CreateMeshes()
-    {
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Trigger_Time", Time.timeSinceLevelLoad);
-            mat.SetFloat("_Playing_Flag", 1);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(1f);
-
-        foreach (Material mat in Materials)
-        {
-            mat.SetFloat("_Arms_Active", 1);
-            mat.SetFloat("_Playing_Flag", 0);
-            yield return null;
-        }
-
-        coroutine = false;
-    } */
 }
