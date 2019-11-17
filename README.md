@@ -11,7 +11,11 @@
   - (N) Pausing added
   - (N) Ship arms can be used and holstered
   - (N) Basic enemy object that can die
-## Iteration 2 - (TBD)
+## Iteration 2 - (NOT DONE)
+  - (N) New enemy types
+  - (N) Waves
+  - (N) Other weapons (Gun, sword, gravity hand, ROCKETTO PUNCH, Shield)
+  - (N) Interact with buttons/levers
 
 
 
