@@ -12,10 +12,12 @@
   - (N) Ship arms can be used and holstered
   - (N) Basic enemy object that can die
 ## Iteration 2 - (NOT DONE)
-  - (N) New enemy types
-  - (N) Waves
-  - (N) Other weapons (Gun, sword, gravity hand, ROCKETTO PUNCH, Shield)
-  - (N) Interact with buttons/levers
+  - (N) New enemy types (Alex)
+  - (N) Waves (Isabel)
+  - (N) Other weapons
+    - Shield, Gravity Hand (Alex)
+    - Rocket Punch, Gun, Sword (Aras)
+  - (N) Interact with buttons/levers 
 
 
 
