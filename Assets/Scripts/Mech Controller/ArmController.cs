@@ -59,7 +59,7 @@ public class ArmController : MonoBehaviour
             {
                 LeftAnchor.rotation = LeftReal.rotation;
 
-                LeftLaunchHand.transform.localRotation = LeftAnchor.localRotation;
+                LeftLaunchHand.transform.rotation = LeftAnchor.rotation;
             }
 
             if (RightArm == ArmState.Attached)
@@ -74,7 +74,7 @@ public class ArmController : MonoBehaviour
             {
                 RightAnchor.rotation = RightReal.rotation;
 
-                RightLaunchHand.transform.localRotation = RightAnchor.localRotation;
+                RightLaunchHand.transform.rotation = RightAnchor.rotation;
             }
         }
         else
