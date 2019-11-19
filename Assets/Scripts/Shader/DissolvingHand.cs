@@ -25,12 +25,8 @@ public class DissolvingHand : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(colList == null || meshList == null)
-        {
-            Debug.Log("FILL MESH LIST");
-            colList = new List<Collider>();
-            meshList = new List<MeshRenderer>();
-        }
+        Debug.Log(gameObject.name);
+
         PopulateArrays();
 
         HandsExist = colList[0].enabled;
@@ -57,6 +53,12 @@ public class DissolvingHand : MonoBehaviour
 
     public void PopulateArrays()
     {
+        if (colList == null || meshList == null)
+        {
+            Debug.Log("FILL MESH LIST");
+            colList = new List<Collider>();
+            meshList = new List<MeshRenderer>();
+        }
         GetMeshesAndColliders(parentObject);
         Colliders = new Collider[colList.Count];
         Renderers = new MeshRenderer[meshList.Count];

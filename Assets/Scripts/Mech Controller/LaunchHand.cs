@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class LaunchHand : MonoBehaviour
 {
@@ -54,13 +55,13 @@ public class LaunchHand : MonoBehaviour
         canInteract = false;
         time_t = 0;
 
-        while((handSocket.position - handSocket.position).magnitude > speed)
+        while(time_t < maxTime)
         {
             handTr.position += (handSocket.position - handTr.position).normalized * speed * Time.deltaTime;
             yield return null;
         }
 
-         handTr.localPosition = SavedLocalPos;
+        handTr.localPosition = SavedLocalPos;
         handTr.localRotation = SavedLocalRot;
 
         handController.armState = ArmState.Attached;
@@ -90,7 +91,7 @@ public class LaunchHand : MonoBehaviour
         canInteract = false;
         time_t = 0;
 
-        while ((handSocket.position - handSocket.position).magnitude > speed)
+        while (time_t < maxTime)
         {
             handTr.position += (handSocket.position - handTr.position).normalized * speed * Time.deltaTime;
             yield return null;
@@ -98,6 +99,7 @@ public class LaunchHand : MonoBehaviour
 
         handTr.localPosition = SavedLocalPos;
         handTr.localRotation = SavedLocalRot;
+
         handController.armState = ArmState.Attached;
         launched = false;
     }

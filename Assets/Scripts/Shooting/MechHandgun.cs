@@ -12,7 +12,7 @@ public class MechHandgun : MonoBehaviour
     public GameObject projectilePrefab;
 
     [Header("Audio Source")]
-    public int gunAudio = 7;
+    public int gunAudio = 6; // 7 if right hand
 
     int projectile_count = 0;
 
