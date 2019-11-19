@@ -87,16 +87,16 @@ public class HandController : MonoBehaviour
             if (col != null)
             {
                 armState = ArmState.Launched;
-                StartCoroutine(launchHand.LaunchArmThread(col.transform));
+                launchHand.LaunchArm(col.transform);
             } else
             {
                 armState = ArmState.Launched;
-                StartCoroutine(launchHand.LaunchArmThread());
+                launchHand.LaunchArm();
             }
         } else
         {
             armState = ArmState.Launched;
-            StartCoroutine(launchHand.LaunchArmThread());
+            launchHand.LaunchArm();
         }
 
     }

@@ -12,13 +12,13 @@ public class MechGrabber : MonoBehaviour
     public Transform PlayerPos;
 
     [Header("Grabbed Object")]
-    [SerializeField] private MechGrabbable Grabbed;
-    [SerializeField] private List<MechGrabbable> GrabRange;
+    [SerializeField] private MechGripAnchor Grabbed;
+    [SerializeField] private List<MechGripAnchor> GrabRange;
     public bool CanGrab = false;
 
     void Awake()
     {
-        GrabRange = new List<MechGrabbable>();
+        GrabRange = new List<MechGripAnchor>();
         if(gripAnchor == null)
         {
             gripAnchor = transform;
@@ -29,6 +29,7 @@ public class MechGrabber : MonoBehaviour
     {
         if(GrabRange.Count > 0 && Grabbed == null && handController.handState != HandState.Open)
         {
+            Debug.Log("Grabbing");
             GrabObject();
         } else if(Grabbed != null && handController.handState == HandState.Open)
         {
@@ -46,14 +47,15 @@ public class MechGrabber : MonoBehaviour
 
     private void ReleaseObject()
     {
-        Grabbed.grabbedBy = null;
+        Grabbed.Release();
         Grabbed = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        MechGrabbable grab;
-        if ((grab = other.GetComponent<MechGrabbable>()) != null && handController.handState == HandState.Open)
+        MechGripAnchor grab;
+        Debug.Log("Trigger Enter");
+        if ((grab = other.GetComponent<MechGripAnchor>()) != null && handController.handState == HandState.Open)
         {
             GrabRange.Add(grab);
         }
@@ -61,8 +63,8 @@ public class MechGrabber : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        MechGrabbable grab;
-        if ((grab = other.GetComponent<MechGrabbable>()) != null && handController.handState == HandState.Open && !GrabRange.Contains(grab))
+        MechGripAnchor grab;
+        if ((grab = other.GetComponent<MechGripAnchor>()) != null && handController.handState == HandState.Open && !GrabRange.Contains(grab))
         {
             GrabRange.Add(grab);
         }
@@ -70,8 +72,8 @@ public class MechGrabber : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        MechGrabbable grab;
-        if ((grab = other.GetComponent<MechGrabbable>()) != null && GrabRange.Contains(grab) && grab != Grabbed)
+        MechGripAnchor grab;
+        if ((grab = other.GetComponent<MechGripAnchor>()) != null && GrabRange.Contains(grab) && grab != Grabbed)
         {
             GrabRange.Remove(grab);
             if(GrabRange.Count == 0)
