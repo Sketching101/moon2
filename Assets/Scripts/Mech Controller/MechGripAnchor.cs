@@ -7,12 +7,13 @@ public class MechGripAnchor : MonoBehaviour
     [Header("Grab Scripts")]
     public MechGrabbable grabObject;
     public MechGrabber grabbedBy;
-    public MechGrabbableParent grabParent;
 
     [Header("Misc")]
-    public MechActiveGrip activeAnchorParent;
     public Transform gripParent;
     public Rigidbody rb;
+
+    public Vector3 OrigLocPos;
+    public Quaternion OrigRotation;
 
     // Update is called once per frame
     void Awake()
@@ -21,6 +22,9 @@ public class MechGripAnchor : MonoBehaviour
             rb = GetComponent<Rigidbody>();
         if (gripParent == null)
             gripParent = transform.parent;
+
+        OrigLocPos = transform.localPosition;
+        OrigRotation = transform.localRotation;
     }
 
     public void Grab(MechGrabber grabber)
@@ -30,7 +34,6 @@ public class MechGripAnchor : MonoBehaviour
             grabbedBy = grabber;
             grabObject.rb = rb;
             grabObject.Grab(this);
-            activeAnchorParent.SetActiveGrip(this);
         }
     }
 
@@ -40,7 +43,10 @@ public class MechGripAnchor : MonoBehaviour
         {
             grabbedBy = null;
             grabObject.Release();
-            activeAnchorParent.ClearActiveGrip(gripParent);
+            transform.SetParent(gripParent, true);
+
+            transform.localPosition = OrigLocPos;
+            transform.localRotation = OrigRotation;
         }
     }
 }

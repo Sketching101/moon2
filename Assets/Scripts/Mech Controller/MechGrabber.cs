@@ -35,6 +35,13 @@ public class MechGrabber : MonoBehaviour
         {
             ReleaseObject();
         }
+
+        if(Grabbed != null)
+        {
+            Grabbed.transform.position = gripAnchor.position;
+
+            Grabbed.transform.rotation = gripAnchor.rotation;
+        }
     }
 
     private bool GrabObject()

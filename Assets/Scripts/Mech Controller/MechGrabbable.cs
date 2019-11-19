@@ -7,6 +7,8 @@ public class MechGrabbable : MonoBehaviour
     public MechGrabber grabbedBy;
     public MechGripAnchor grabbedAt;
     public Rigidbody rb;
+    public Transform grabbableParent;
+    public Transform grabbableParentParent;
 
     bool grabbed = false;
     bool isKinematicFlag;
@@ -18,16 +20,6 @@ public class MechGrabbable : MonoBehaviour
             rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*if(grabbedBy != null && grabbedBy.gripAnchor != null)
-        {
-            grabbedAt.transform.position = grabbedBy.gripAnchor.position;
-            grabbedAt.transform.rotation = grabbedBy.gripAnchor.rotation;
-        }*/
-    }
-
     public void Grab(MechGripAnchor grabbedAt_)
     {
         grabbed = true;
@@ -36,10 +28,14 @@ public class MechGrabbable : MonoBehaviour
         rb = grabbedAt_.rb;
         isKinematicFlag = rb.isKinematic;
         rb.isKinematic = false;
+        grabbedAt.transform.SetParent(grabbableParentParent, true);
+        grabbableParent.SetParent(grabbedAt.transform, true);
     }
 
     public void Release()
     {
+        Debug.Log("Check");
+        grabbableParent.SetParent(grabbableParentParent, true);
         grabbed = false;
         grabbedBy = null;
         grabbedAt = null;
