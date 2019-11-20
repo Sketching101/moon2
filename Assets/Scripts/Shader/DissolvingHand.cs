@@ -25,15 +25,20 @@ public class DissolvingHand : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(colList == null || meshList == null)
-        {
-            Debug.Log("FILL MESH LIST");
-            colList = new List<Collider>();
-            meshList = new List<MeshRenderer>();
-        }
+        Debug.Log(gameObject.name);
+
         PopulateArrays();
 
-        HandsExist = colList[0].enabled;
+        if (StartWHand)
+        {
+            HandsExist = true;
+            SetMeshesAndColliders();
+        } else
+        {
+            HandsExist = false;
+            ClearMeshesAndColliders();
+        }
+
 
         if (Instance == null) {
             Instance = this;
@@ -57,6 +62,12 @@ public class DissolvingHand : MonoBehaviour
 
     public void PopulateArrays()
     {
+        if (colList == null || meshList == null)
+        {
+            Debug.Log("FILL MESH LIST");
+            colList = new List<Collider>();
+            meshList = new List<MeshRenderer>();
+        }
         GetMeshesAndColliders(parentObject);
         Colliders = new Collider[colList.Count];
         Renderers = new MeshRenderer[meshList.Count];
@@ -74,18 +85,14 @@ public class DissolvingHand : MonoBehaviour
 
     public void ClearMeshesAndColliders() 
     {
-        float dissolve = 0;
-        while (dissolve < 1)
+        if (dissolveWithThis)
         {
-            if (dissolveWithThis)
+            foreach (Renderer rend in rends)
             {
-                dissolve = Mathf.Lerp(dissolve, 1.3f, .02f);
-                foreach (Renderer rend in rends)
-                {
-                    rend.sharedMaterial.SetFloat("_DissolveAmount", dissolve);
-                }
+                rend.sharedMaterial.SetFloat("_DissolveAmount", 1);
             }
         }
+
         int mLen = Renderers.Length;
         int cLen = Colliders.Length;
         for (int i = 0; i < mLen; i++)
@@ -98,6 +105,31 @@ public class DissolvingHand : MonoBehaviour
             Colliders[i].enabled = false;
         }
     }
+
+    public void SetMeshesAndColliders()
+    {
+
+        if (dissolveWithThis)
+        {
+            foreach (Renderer rend in rends)
+            {
+                rend.sharedMaterial.SetFloat("_DissolveAmount", 0);
+            }
+        }
+
+        int mLen = Renderers.Length;
+        int cLen = Colliders.Length;
+        for (int i = 0; i < mLen; i++)
+        {
+            Renderers[i].enabled = true;
+        }
+
+        for (int i = 0; i < cLen; i++)
+        {
+            Colliders[i].enabled = true;
+        }
+    }
+
 
     private void GetMeshesAndColliders(Transform currentObj)
     {

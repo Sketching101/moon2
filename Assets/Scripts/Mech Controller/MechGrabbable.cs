@@ -5,41 +5,41 @@ using UnityEngine;
 public class MechGrabbable : MonoBehaviour
 {
     public MechGrabber grabbedBy;
-    public Transform gripAnchor;
+    public MechGripAnchor grabbedAt;
     public Rigidbody rb;
-
+    public Transform grabbableParent;
+    public Transform grabbableParentParent;
+    public HeldItem item;
+    public bool defaultKinematic;
     bool grabbed = false;
     bool isKinematicFlag;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (rb == null)
             rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(grabbedBy != null && grabbedBy.gripAnchor != null)
-        {
-            gripAnchor.position = grabbedBy.gripAnchor.position;
-            gripAnchor.rotation = grabbedBy.gripAnchor.rotation;
-        }
-    }
-
-    public void Grab(MechGrabber grabber)
+    public void Grab(MechGripAnchor grabbedAt_)
     {
         grabbed = true;
-        grabbedBy = grabber;
+        grabbedAt = grabbedAt_;
+        grabbedBy = grabbedAt.grabbedBy;
+        rb = grabbedAt_.rb;
         isKinematicFlag = rb.isKinematic;
-        rb.isKinematic = false;
+        rb.isKinematic = defaultKinematic;
+        grabbedAt.transform.SetParent(grabbableParentParent, true);
+        grabbableParent.SetParent(grabbedAt.transform, true);
     }
 
     public void Release()
     {
+        grabbableParent.SetParent(grabbableParentParent, true);
         grabbed = false;
         grabbedBy = null;
+        grabbedAt = null;
         rb.isKinematic = isKinematicFlag;
+        rb = null;
     }
 }

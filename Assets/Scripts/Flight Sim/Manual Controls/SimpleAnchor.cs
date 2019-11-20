@@ -5,15 +5,15 @@ using UnityEngine;
 public class SimpleAnchor : MonoBehaviour
 {
     public Transform Anchor;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
+    public bool setRotation = false;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position = Anchor.position;
+        if(setRotation)
+        {
+            transform.rotation = Anchor.rotation;
+        }
     }
 }

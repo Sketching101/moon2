@@ -5,7 +5,7 @@ using UnityEngine;
 public class AltVRGrabbable : MonoBehaviour {
 
     public AltVRGrabber m_grabbedBy = null;
-
+    public bool SetRotation;
     /// <summary>
     /// If true, the object is currently grabbed.
     /// </summary>
@@ -21,7 +21,10 @@ public class AltVRGrabbable : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(SetRotation && isGrabbed)
+        {
+            transform.rotation = m_grabbedBy.transform.rotation;
+        }
 	}
 
     void OnTriggerEnter(Collider other)
