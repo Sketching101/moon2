@@ -40,9 +40,7 @@ public class AltVRGrabber : MonoBehaviour {
             GrabbedObject.transform.position = transform.position;
         }
 
-
-/*        if (PullUpMenu.Instance.Paused)
-            LetGoObject();*/
+        
     }
 
     void OnTriggerEnter(Collider other)
