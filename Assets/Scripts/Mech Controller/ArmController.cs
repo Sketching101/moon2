@@ -76,6 +76,7 @@ public class ArmController : MonoBehaviour
 
                 RightLaunchHand.transform.rotation = RightAnchor.rotation;
             }
+            
         }
         else
         {
@@ -84,47 +85,10 @@ public class ArmController : MonoBehaviour
             RightHand.localRotation = RestRight.localRotation;
             RightHand.localPosition = RestRight.localPosition * distMul;
         }
-
-
     }
-
-    /// <summary>
-    /// Launches left fist if possible
-    /// </summary>
-    /// <returns>If failed to launch left fist, return false. Otherwise, true.</returns>
-    public bool LaunchLeft(Transform Target)
-    {
-        if(LeftArm == ArmState.Launched || LeftArm == ArmState.HoldingItem)
-        {
-            return false;
-        } else
-        {
-            StartCoroutine(LeftLaunchHand.LaunchArmThread(Target));
-            return true;
-        }
-    }
-
-    /// <summary>
-    /// Launches right fist if possible
-    /// </summary>
-    /// <returns>If failed to launch right fist, return false. Otherwise, true.</returns>
-    public bool LaunchRight(Transform Target)
-    {
-        if (RightArm == ArmState.Launched || RightArm == ArmState.HoldingItem)
-        {
-            return false;
-        }
-        else
-        {
-            StartCoroutine(RightLaunchHand.LaunchArmThread(Target));
-            return true;
-        }
-    }
-
-
 }
 
 public enum ArmState
 {
-    Attached, Launched, HoldingItem
+    Attached, Launched
 }

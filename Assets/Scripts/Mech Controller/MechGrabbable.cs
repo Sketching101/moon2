@@ -9,7 +9,8 @@ public class MechGrabbable : MonoBehaviour
     public Rigidbody rb;
     public Transform grabbableParent;
     public Transform grabbableParentParent;
-
+    public HeldItem item;
+    public bool defaultKinematic;
     bool grabbed = false;
     bool isKinematicFlag;
 
@@ -27,14 +28,13 @@ public class MechGrabbable : MonoBehaviour
         grabbedBy = grabbedAt.grabbedBy;
         rb = grabbedAt_.rb;
         isKinematicFlag = rb.isKinematic;
-        rb.isKinematic = false;
+        rb.isKinematic = defaultKinematic;
         grabbedAt.transform.SetParent(grabbableParentParent, true);
         grabbableParent.SetParent(grabbedAt.transform, true);
     }
 
     public void Release()
     {
-        Debug.Log("Check");
         grabbableParent.SetParent(grabbableParentParent, true);
         grabbed = false;
         grabbedBy = null;

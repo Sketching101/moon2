@@ -16,6 +16,8 @@ public class MechGrabber : MonoBehaviour
     [SerializeField] private List<MechGripAnchor> GrabRange;
     public bool CanGrab = false;
 
+    bool hasGrabbed;
+
     void Awake()
     {
         GrabRange = new List<MechGripAnchor>();
@@ -36,27 +38,35 @@ public class MechGrabber : MonoBehaviour
             ReleaseObject();
         }
 
-        if(Grabbed != null)
-        {
+        if (hasGrabbed)
+        { 
             Grabbed.transform.position = gripAnchor.position;
-
             Grabbed.transform.rotation = gripAnchor.rotation;
         }
     }
 
     private bool GrabObject()
     {
+        
         Grabbed = GrabRange[0];
         Grabbed.Grab(this);
         GrabRange.Remove(Grabbed);
+        handController.heldItem = Grabbed.grabObject.item;
+        handController.HoldingItem = true;
+        hasGrabbed = true;
         return true;
     }
 
     private void ReleaseObject()
     {
+        hasGrabbed = false;
         Grabbed.Release();
         Grabbed = null;
+        handController.HoldingItem = false;
+        handController.heldItem = null;
+
     }
+
 
     private void OnTriggerEnter(Collider other)
     {

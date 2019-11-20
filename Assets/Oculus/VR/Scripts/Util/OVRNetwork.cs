@@ -136,7 +136,7 @@ public class OVRNetwork
 			tcpListener.Stop();
 			tcpListener = null;
 
-			Debug.Log("[OVRNetworkTcpServer] Stopped listening");
+			//Debug.Log("[OVRNetworkTcpServer] Stopped listening");
 		}
 
 		private void DoAcceptTcpClientCallback(IAsyncResult ar)

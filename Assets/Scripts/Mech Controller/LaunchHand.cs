@@ -113,7 +113,7 @@ public class LaunchHand : MonoBehaviour
         dist = (handSocket.position - handTr.position).magnitude;
         yield return null;
 
-        while (time_t < maxTime && dist > 5)
+        while (time_t < maxTime && dist > 15)
         {
             dist = (handSocket.position - handTr.position).magnitude;
             deltaTime = time_t - last_time;

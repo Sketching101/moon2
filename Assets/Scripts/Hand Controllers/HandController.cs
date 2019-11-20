@@ -28,8 +28,13 @@ public class HandController : MonoBehaviour
     [Header("Misc")]
     public HandState handState;
 
+    public bool HoldingItem = false;
+    public HeldItem heldItem;
+
+
     [Header("Level Based Settings")]
     public bool StartWHands;
+
 
     bool coroutine = false;
 
@@ -37,7 +42,7 @@ public class HandController : MonoBehaviour
     {
         if (!DissolvingHand.Instance.HandsExist)
             return;
-
+        bool index = OVRInput.GetDown(IndexFinger.OVRBut);
         if (Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.closeFistFlag)
         {
             handState = HandState.Fist;
@@ -48,10 +53,10 @@ public class HandController : MonoBehaviour
         }
         else if (Thumb.closeFistFlag && IndexFinger.openPalmFlag && MiddleFinger.closeFistFlag)
         {
-            if (handGun != null && handState == HandState.FingerGun)
+            if (handGun != null && handState == HandState.FingerGun && !HoldingItem)
             {
                 handGun.FireGun();
-            }
+            } 
             handState = HandState.Point;
         }
         else if (Thumb.closeFistFlag && IndexFinger.closeFistFlag && MiddleFinger.openPalmFlag)
@@ -67,7 +72,21 @@ public class HandController : MonoBehaviour
             handState = HandState.Open;
         }
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, controller) && HandState.Fist == handState)
+
+        if (HoldingItem && index)
+        {
+            heldItem.PrimaryAction();
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (IndexFinger.closeFistFlag && HoldingItem)
+        {
+            heldItem.PrimaryActionCont();
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, controller) && HandState.Fist == handState && armState != ArmState.Launched)
         {
             FireHand();
         }

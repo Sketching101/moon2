@@ -1661,7 +1661,7 @@ public class OVRManager : MonoBehaviour
 		{
 			try
 			{
-				Debug.Log("[OVRManager] AudioOutChanged event");
+		//		Debug.Log("[OVRManager] AudioOutChanged event");
 				if (AudioOutChanged != null)
 					AudioOutChanged();
 			}
@@ -1683,7 +1683,7 @@ public class OVRManager : MonoBehaviour
 		{
 			try
 			{
-				Debug.Log("[OVRManager] AudioInChanged event");
+		//		Debug.Log("[OVRManager] AudioInChanged event");
 				if (AudioInChanged != null)
 					AudioInChanged();
 			}
@@ -1701,7 +1701,7 @@ public class OVRManager : MonoBehaviour
 		{
 			try
 			{
-				Debug.Log("[OVRManager] TrackingLost event");
+			//	Debug.Log("[OVRManager] TrackingLost event");
 				if (TrackingLost != null)
 					TrackingLost();
 			}
@@ -1715,7 +1715,7 @@ public class OVRManager : MonoBehaviour
 		{
 			try
 			{
-				Debug.Log("[OVRManager] TrackingAcquired event");
+			//	Debug.Log("[OVRManager] TrackingAcquired event");
 				if (TrackingAcquired != null)
 					TrackingAcquired();
 			}
@@ -1772,7 +1772,7 @@ public class OVRManager : MonoBehaviour
 		{
 			if (!multipleMainCameraWarningPresented)
 			{
-				Debug.LogWarning("Multiple MainCamera found. Assume the real MainCamera is the camera with the least depth");
+		//		Debug.LogWarning("Multiple MainCamera found. Assume the real MainCamera is the camera with the least depth");
 				multipleMainCameraWarningPresented = true;
 			}
 			// return the camera with least depth
@@ -1782,11 +1782,11 @@ public class OVRManager : MonoBehaviour
 
 		if (result != null)
 		{
-			Debug.LogFormat("[OVRManager] mainCamera found for MRC: ", result.gameObject.name);
+		//	Debug.LogFormat("[OVRManager] mainCamera found for MRC: ", result.gameObject.name);
 		}
 		else
 		{
-			Debug.Log("[OVRManager] unable to find a vaild camera");
+		//	Debug.Log("[OVRManager] unable to find a vaild camera");
 		}
 		lastFoundMainCamera = result;
 		return result;
@@ -1813,7 +1813,7 @@ public class OVRManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		Debug.Log("[OVRManager] OnDestroy");
+	//	Debug.Log("[OVRManager] OnDestroy");
 		OVRManagerinitialized = false;
 	}
 
@@ -1821,11 +1821,11 @@ public class OVRManager : MonoBehaviour
 	{
 		if (pause)
 		{
-			Debug.Log("[OVRManager] OnApplicationPause(true)");
+		//	Debug.Log("[OVRManager] OnApplicationPause(true)");
 		}
 		else
 		{
-			Debug.Log("[OVRManager] OnApplicationPause(false)");
+		//	Debug.Log("[OVRManager] OnApplicationPause(false)");
 		}
 	}
 
@@ -1833,17 +1833,17 @@ public class OVRManager : MonoBehaviour
 	{
 		if (focus)
 		{
-			Debug.Log("[OVRManager] OnApplicationFocus(true)");
+			//Debug.Log("[OVRManager] OnApplicationFocus(true)");
 		}
 		else
 		{
-			Debug.Log("[OVRManager] OnApplicationFocus(false)");
+			//Debug.Log("[OVRManager] OnApplicationFocus(false)");
 		}
 	}
 
 	private void OnApplicationQuit()
 	{
-		Debug.Log("[OVRManager] OnApplicationQuit");
+		//Debug.Log("[OVRManager] OnApplicationQuit");
 	}
 
 #endregion // Unity Messages

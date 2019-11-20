@@ -11,7 +11,6 @@ public class FingerController : MonoBehaviour
     public OVRInput.RawTouch Touch;
     public OVRInput.RawNearTouch NTouch;
     public OVRInput.RawButton OVRBut;
-    
 
     [Header("Stats")]
     public float rotationSpeed;
