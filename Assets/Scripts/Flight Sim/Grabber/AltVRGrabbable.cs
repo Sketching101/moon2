@@ -14,21 +14,38 @@ public class AltVRGrabbable : MonoBehaviour {
         get { return m_grabbedBy != null; }
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private bool grabbedLastFrame = false;
+
+    public bool grabbedThisFrame = false;
+    public bool letGoThisFrame = false;
+
+    public InCabinHeldItem heldItem;
+
+    private void Awake()
+    {
+        if(heldItem == null)
+        {
+            heldItem = GetComponent<InCabinHeldItem>();
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
+        grabbedThisFrame = (!grabbedLastFrame && isGrabbed);
+        letGoThisFrame = (grabbedLastFrame && !isGrabbed);
+
 		if(SetRotation && isGrabbed)
         {
             transform.rotation = m_grabbedBy.transform.rotation;
         }
-	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        
+        if(grabbedThisFrame && heldItem != null)
+        {
+            heldItem.OnGrab();
+        } else if(letGoThisFrame && heldItem != null)
+        {
+            heldItem.OnLetGo();
+        }
+        grabbedLastFrame = isGrabbed;
     }
 }

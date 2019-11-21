@@ -13,9 +13,12 @@ public class MechGun : HeldItem
     [Header("Stats")]
     public float damage = 5;
 
+    public int SFXIdx;
+
     public override void PrimaryAction()
     {
         GameObject bullet = Instantiate(Laser, GunBarrel.position, GunBarrel.rotation);
         bullet.GetComponent<Rigidbody>().velocity = GunBarrel.forward * damage * 50;
+        SFXManager.Instance.PlayClip(SFXIdx);
     }
 }

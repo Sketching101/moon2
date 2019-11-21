@@ -44,7 +44,6 @@ public class MechGripAnchor : MonoBehaviour
             grabbedBy = null;
             grabObject.Release();
             transform.SetParent(gripParent, true);
-
             transform.localPosition = OrigLocPos;
             transform.localRotation = OrigRotation;
         }
