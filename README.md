@@ -9,14 +9,14 @@
   - (T) Buttons added
   - (N) Menu/UI added
   - (N) Pausing added
-  - (N) Ship arms can be used and holstered
+  - (D) Ship arms can be used and holstered
   - (N) Basic enemy object that can die
 ## Iteration 2 - (NOT DONE)
   - (N) New enemy types (Alex)
   - (N) Waves (Isabel)
   - (N) Other weapons
-    - Shield, Gravity Hand (Alex)
-    - Rocket Punch, Gun, Sword (Aras)
+    - (N) Shield, Gravity Hand (Alex)
+    - (D) Rocket Punch, Gun, Sword (Aras)
   - (N) Interact with buttons/levers 
 
 
