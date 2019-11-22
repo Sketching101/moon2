@@ -41,8 +41,28 @@ public class CollisionSphere : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("COLLISION");
-        if (other.gameObject.tag == "bullet" && visible) { 
-            Destroy(other.gameObject);
+        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade") && visible) {
+            if (other.gameObject.tag == "bullet")
+            {
+                Destroy(other.gameObject);
+            }
+            visible = false;
+            RealObj.SetActive(false);
+            gameObject.GetComponent<Collider>().enabled = false;
+            invis_timer = 0.0f;
+            explosionSFX.Play();
+            explosionVFX.Play();
+        }
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("COLLISION");
+        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade") && visible)
+        {
+            if (other.gameObject.tag == "bullet")
+            {
+                Destroy(other.gameObject);
+            }
             visible = false;
             RealObj.SetActive(false);
             gameObject.GetComponent<Collider>().enabled = false;

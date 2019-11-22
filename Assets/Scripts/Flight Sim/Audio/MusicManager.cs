@@ -14,6 +14,8 @@ public class MusicManager : MonoBehaviour {
     [Header("Music Source")]
     public AudioSource MusicSpeakers;
 
+    public bool DontPlay;
+
     int musicIdx = 0;
     bool playingDead = false;
     List<int> Music;
@@ -31,7 +33,7 @@ public class MusicManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
+        if (DontPlay) return;
         if (!MusicSpeakers.isPlaying && Music.Count > 0)
         {
             MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];

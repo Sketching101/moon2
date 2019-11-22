@@ -31,7 +31,6 @@ public class MechGrabber : MonoBehaviour
     {
         if(GrabRange.Count > 0 && Grabbed == null && handController.handState != HandState.Open)
         {
-            Debug.Log("Grabbing");
             GrabObject();
         } else if(Grabbed != null && handController.handState == HandState.Open)
         {
@@ -71,7 +70,6 @@ public class MechGrabber : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         MechGripAnchor grab;
-        Debug.Log("Trigger Enter");
         if ((grab = other.GetComponent<MechGripAnchor>()) != null && handController.handState == HandState.Open)
         {
             GrabRange.Add(grab);

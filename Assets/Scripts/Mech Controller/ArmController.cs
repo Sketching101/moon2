@@ -18,6 +18,7 @@ public class ArmController : MonoBehaviour
     [Header("Anchors")]
     public Transform LeftAnchor;
     public Transform RightAnchor;
+    public Transform CenterEye;
 
     
     private ArmState RightArm
@@ -67,8 +68,8 @@ public class ArmController : MonoBehaviour
                 RightAnchor.position = RightReal.position;
                 RightAnchor.rotation = RightReal.rotation;
 
-                RightHand.transform.localRotation = RightAnchor.localRotation;
-                RightHand.transform.localPosition = RightAnchor.localPosition * distMul;
+                RightHand.localRotation = RightAnchor.localRotation;
+                RightHand.localPosition = RightAnchor.localPosition * distMul;
             }
             else if (RightArm == ArmState.Launched)
             {
@@ -81,9 +82,9 @@ public class ArmController : MonoBehaviour
         else
         {
             LeftHand.localRotation = RestLeft.localRotation;
-            LeftHand.localPosition = RestLeft.localPosition * distMul;
+            LeftHand.localPosition = RestLeft.localPosition;
             RightHand.localRotation = RestRight.localRotation;
-            RightHand.localPosition = RestRight.localPosition * distMul;
+            RightHand.localPosition = RestRight.localPosition;
         }
     }
 }

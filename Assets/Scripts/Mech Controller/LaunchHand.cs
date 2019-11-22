@@ -22,6 +22,8 @@ public class LaunchHand : MonoBehaviour
 
     float dist;
     float time_t = 0;
+
+    public int SFXIdx;
     
 
     void Update()
@@ -97,6 +99,7 @@ public class LaunchHand : MonoBehaviour
         float last_time = 0;
         float deltaTime;
         yield return null;
+        SFXManager.Instance.PlayClip(SFXIdx);
 
         while (time_t < maxTime)
         {
@@ -106,7 +109,7 @@ public class LaunchHand : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Finished launching, please come back ffs");
+
         canInteract = false;
         time_t = 0;
         last_time = 0;

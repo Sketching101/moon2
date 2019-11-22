@@ -25,8 +25,6 @@ public class DissolvingHand : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log(gameObject.name);
-
         PopulateArrays();
 
         if (StartWHand)
@@ -64,7 +62,6 @@ public class DissolvingHand : MonoBehaviour
     {
         if (colList == null || meshList == null)
         {
-            Debug.Log("FILL MESH LIST");
             colList = new List<Collider>();
             meshList = new List<MeshRenderer>();
         }
@@ -135,7 +132,6 @@ public class DissolvingHand : MonoBehaviour
     {
         if(currentObj == null)
         {
-            Debug.Log("NULL");
             return;
         }
         int childCount = currentObj.childCount;

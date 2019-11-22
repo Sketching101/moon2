@@ -13,6 +13,7 @@ public class AltVRGrabber : MonoBehaviour {
 
     public Transform HandAnchor;
 
+    public Transform MechGrabberTr;
 
 	// Use this for initialization
 	void Start () {
