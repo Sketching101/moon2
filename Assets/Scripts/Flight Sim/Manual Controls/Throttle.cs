@@ -131,7 +131,6 @@ namespace ManualControls
             float journeyLength = Vector3.Distance(StartPos, NearestY);
             startTime = Time.time;
             float NearestYVal = FindNearestYVal();
-            Debug.LogFormat("Nearest Y : ({0}, {1}, {2})", NearestY.x, NearestY.y, NearestY.z);
             while (!GripObject.isGrabbed && (Mathf.Abs(ThrottleYOut - NearestYVal) > 0.02f))
             {
                 float distCovered = (Time.time - startTime) * speed;
@@ -142,10 +141,7 @@ namespace ManualControls
             }
 
             GripAnchor.localRotation = new Quaternion();
-            Debug.Log("Should reset Rotation");
             GripAnchor.localPosition = NearestY;
-
-            Debug.Log("Complete let go");
             yield return null;
         }
 
