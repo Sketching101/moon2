@@ -11,6 +11,7 @@ TagManager:
   - CrashCollision
   - Finger
   - Blade
+  - enemy_bullet
   layers:
   - Default
   - TransparentFX

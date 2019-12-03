@@ -41,7 +41,7 @@ public class CollisionSphere : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("COLLISION");
-        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade") && visible) {
+        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade" || other.gameObject.tag == "enemy_bullet") && visible) {
             if (other.gameObject.tag == "bullet")
             {
                 Destroy(other.gameObject);
@@ -57,7 +57,7 @@ public class CollisionSphere : MonoBehaviour {
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log("COLLISION");
-        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade") && visible)
+        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade" || other.gameObject.tag == "enemy_bullet") && visible)
         {
             if (other.gameObject.tag == "bullet")
             {
