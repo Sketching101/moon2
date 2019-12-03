@@ -6,6 +6,7 @@ public class enemy_ship_ai : MonoBehaviour
 {
     public float angleBetween = 0.0f;
     public Transform target;
+    public Transform createAt;
 
     public GameObject rocketProjectile;
     public float movementSpeed = 15.0f;
@@ -13,6 +14,9 @@ public class enemy_ship_ai : MonoBehaviour
     public bool moving_right = true;
     public AudioClip blastSound;
     public ParticleSystem explosion;
+
+
+    public Transform ExplodeAt;
 
     public bool alive;
     public float hp = 15.0f;
@@ -83,10 +87,10 @@ public class enemy_ship_ai : MonoBehaviour
     void shoot() { 
         GameObject tempObj;
 
-        tempObj = Instantiate(rocketProjectile) as GameObject;
+        tempObj = Instantiate(rocketProjectile, createAt.position, transform.rotation) as GameObject;
 
         //Set position  of the bullet in front of the player
-        tempObj.transform.position = transform.position + transform.forward;
+     //   tempObj.transform.position = transform.position + transform.forward;
 
         //Vector3 targetDir = target.position - transform.position;
         //angleBetween = Vector3.Angle(transform.forward, targetDir);
@@ -105,14 +109,13 @@ public class enemy_ship_ai : MonoBehaviour
         AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
-
+        GetComponent<Rigidbody>().useGravity = true;
         while (explosion.isPlaying)
         {
+            GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5,ExplodeAt.position);
             Debug.Log("Dead but exploding");
             yield return null;
         }
-
-        GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<MeshRenderer>().enabled = false;
         explosion.Play();
         while (explosion.isPlaying)

@@ -6,6 +6,7 @@ public class enemy_turret_ai : MonoBehaviour
 {
     public float angleBetween = 0.0f;
     public Transform target;
+    public Transform createAt;
 
     public GameObject model;
 
@@ -13,6 +14,8 @@ public class enemy_turret_ai : MonoBehaviour
     public float elapsed = 0.0f;
     public AudioClip blastSound;
     public ParticleSystem explosion;
+
+    public Transform ExplodeAt;
 
     public bool alive;
     public float hp = 10.0f;
@@ -53,24 +56,29 @@ public class enemy_turret_ai : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy") 
+        if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
+        {
             hp -= 10;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
+        {
             hp -= 10;
+            ExplodeAt.position = other.GetContact(0).point;
+        }
     }
 
     void shoot(float time)
     {
         GameObject tempObj;
-        
-        tempObj = Instantiate(rocketProjectile) as GameObject;
+
+        tempObj = Instantiate(rocketProjectile, createAt.position, transform.rotation) as GameObject;
 
         //Set position  of the bullet in front of the player
-        tempObj.transform.position = transform.position + transform.forward;
+  //      tempObj.transform.position = transform.position + transform.forward;
 
         Vector3 targetDir = target.position - transform.position;
 
@@ -92,11 +100,10 @@ public class enemy_turret_ai : MonoBehaviour
         explosion.Play();
         yield return null;
 
-        GetComponent<Rigidbody>().AddForce(transform.forward * -1000);
-
-
+        GetComponent<Rigidbody>().useGravity = true;
         while (explosion.isPlaying)
         {
+            GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
             Debug.Log("Dead but exploding");
             yield return null;
         }

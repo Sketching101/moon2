@@ -77,8 +77,6 @@ public class enemy_drone_ai : MonoBehaviour
         alive = false;
         AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
-        GetComponent<Rigidbody>().AddExplosionForce(10f, transform.forward * -1, 10);
-
         yield return null;
         GetComponent<MeshRenderer>().enabled = false;
         while (explosion.isPlaying)

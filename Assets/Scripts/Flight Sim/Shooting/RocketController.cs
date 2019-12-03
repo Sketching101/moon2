@@ -9,14 +9,23 @@ public class RocketController : MonoBehaviour {
     float LifeTime = 10;
     public Rigidbody rb;
 
+    public ParticleSystem explosion;
+    public AudioClip blastSound;
+    public GameObject model;
+
+    public bool alive;
+
 	// Use this for initialization
 	void Start () {
+        alive = true;
         if (rb == null)
             rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (!alive)
+            return;
         time_t += Time.deltaTime;
         if (time_t > LifeTime)
             Destroy(gameObject);
@@ -28,4 +37,33 @@ public class RocketController : MonoBehaviour {
         transform.LookAt(TargetPosition);
         rb.velocity = 100 * transform.forward;
 	}
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject
+            && (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet"))
+        {
+            StartCoroutine(Dying());
+        }
+    }
+    
+
+    IEnumerator Dying()
+    {
+        alive = false;
+        AudioSource.PlayClipAtPoint(blastSound, transform.position);
+        explosion.Play();
+        yield return null;
+        Destroy(model);
+
+        while (explosion.isPlaying)
+        {
+            Debug.Log("Dead but exploding");
+            yield return null;
+        }
+        
+
+        Destroy(gameObject);
+
+    }
 }
