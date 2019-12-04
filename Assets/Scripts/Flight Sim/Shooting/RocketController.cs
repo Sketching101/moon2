@@ -43,13 +43,28 @@ public class RocketController : MonoBehaviour {
         if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject
             && (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet"))
         {
+           StartCoroutine(Dying());
+        }
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 10;
             StartCoroutine(Dying());
         }
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 10;
+            StartCoroutine(Dying());
+        }
+    }
+
 
     IEnumerator Dying()
     {
+        rb.velocity = new Vector3(0, 0, 0);
         alive = false;
         AudioSource.PlayClipAtPoint(blastSound, transform.position);
         explosion.Play();

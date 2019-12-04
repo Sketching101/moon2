@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_drone_ai : MonoBehaviour
+public class enemy_drone_ai : Enemy
 {
     public float angleBetween = 0.0f;
     public Transform target;
@@ -35,7 +35,8 @@ public class enemy_drone_ai : MonoBehaviour
             Vector3 targetDir = target.position - transform.position;
 
 
-            if(Vector3.Distance(target.position, transform.position) <= 2.0f) {
+            if (Vector3.Distance(target.position, transform.position) <= 2.0f)
+            {
                 explode();
             }
 
@@ -47,7 +48,8 @@ public class enemy_drone_ai : MonoBehaviour
 
             elapsed += Time.deltaTime;
 
-            if(elapsed >= 5.0f) {
+            if (elapsed >= 5.0f)
+            {
                 movementSpeed = 40.0f;
             }
 
@@ -57,17 +59,28 @@ public class enemy_drone_ai : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-         hp -= 10;
-        //if other = player, deal damage
+        hp -= 10;
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 10;
+            StartCoroutine(Dying());
+        }
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
             hp -= 10;
+
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 10;
+            StartCoroutine(Dying());
+        }
     }
 
-    private void explode() {
+    private void explode()
+    {
         hp -= 20;
         //player.hp -= 20
     }
@@ -84,8 +97,24 @@ public class enemy_drone_ai : MonoBehaviour
             Debug.Log("Dead but exploding");
             yield return null;
         }
+        spawner.shipDeadSig();
+
 
         Destroy(gameObject);
 
+    }
+
+    public void set_target(Transform new_target)
+    {
+
+        target = new_target;
+    }
+
+    public void set_values(ParticleSystem value) {
+        explosion = value;
+    }
+
+    public bool get_alive() {
+        return (alive);
     }
 }

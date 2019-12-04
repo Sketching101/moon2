@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_ship_ai : MonoBehaviour
+public class enemy_ship_ai : Enemy
 {
     public float angleBetween = 0.0f;
     public Transform target;
@@ -72,6 +72,7 @@ public class enemy_ship_ai : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
@@ -87,20 +88,20 @@ public class enemy_ship_ai : MonoBehaviour
     void shoot() { 
         GameObject tempObj;
 
-        tempObj = Instantiate(rocketProjectile, createAt.position, transform.rotation) as GameObject;
+        tempObj = Instantiate(rocketProjectile) as GameObject;
+        tempObj.transform.position = transform.position + transform.forward;
 
-        //Set position  of the bullet in front of the player
-     //   tempObj.transform.position = transform.position + transform.forward;
-
-        //Vector3 targetDir = target.position - transform.position;
-        //angleBetween = Vector3.Angle(transform.forward, targetDir);
         tempObj.transform.LookAt(target);
 
-        //Get the Rigidbody that is attached to that instantiated bullet
         Rigidbody projectile = tempObj.GetComponent<Rigidbody>();
 
-        //Shoot the Bullet 
         projectile.velocity = tempObj.transform.forward * 50;
+    }
+
+    public void set_target(Transform new_target)
+    {
+
+        target = new_target;
     }
 
     IEnumerator Dying()
@@ -109,22 +110,21 @@ public class enemy_ship_ai : MonoBehaviour
         AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
-        GetComponent<Rigidbody>().useGravity = true;
-        while (explosion.isPlaying)
-        {
-            GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5,ExplodeAt.position);
-            Debug.Log("Dead but exploding");
-            yield return null;
-        }
         GetComponent<MeshRenderer>().enabled = false;
-        explosion.Play();
         while (explosion.isPlaying)
         {
             Debug.Log("Dead but exploding");
             yield return null;
         }
+
+        spawner.shipDeadSig();
 
         Destroy(gameObject);
 
+    }
+
+    public bool get_alive()
+    {
+        return (alive);
     }
 }

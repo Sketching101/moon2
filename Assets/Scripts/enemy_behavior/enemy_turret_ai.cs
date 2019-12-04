@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_turret_ai : MonoBehaviour
+public class enemy_turret_ai : Enemy
 {
     public float angleBetween = 0.0f;
     public Transform target;
@@ -37,8 +37,7 @@ public class enemy_turret_ai : MonoBehaviour
             {
                 StartCoroutine(Dying());
             }
-            //Vector3 targetDir = target.position - transform.position;
-            //angleBetween = Vector3.Angle(transform.forward, targetDir);
+
             //transform.LookAt(target);
 
 
@@ -76,13 +75,9 @@ public class enemy_turret_ai : MonoBehaviour
         GameObject tempObj;
 
         tempObj = Instantiate(rocketProjectile, createAt.position, transform.rotation) as GameObject;
-
-        //Set position  of the bullet in front of the player
-  //      tempObj.transform.position = transform.position + transform.forward;
-
         Vector3 targetDir = target.position - transform.position;
 
-       //targetDir += Vector3(0, 0, 1);
+        //targetDir += Vector3(0, 0, 1);
         angleBetween = Vector3.Angle(transform.forward, targetDir);
         tempObj.transform.LookAt(target);
 
@@ -116,8 +111,25 @@ public class enemy_turret_ai : MonoBehaviour
             Debug.Log("Dead but exploding");
             yield return null;
         }
+        spawner.shipDeadSig();
 
         Destroy(gameObject);
 
+    }
+    public void set_target(Transform new_target)
+    {
+
+        target = new_target;
+    }
+
+    public void set_values(Transform new_target) {
+        createAt = transform;
+        ExplodeAt = new_target;
+        model = gameObject;
+    }
+
+    public bool get_alive()
+    {
+        return (alive);
     }
 }
