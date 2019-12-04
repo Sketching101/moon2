@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int HP;
+    public int HP = 1000;
     public int Score;
 
     public static PlayerStats Instance { get; private set; } // static singleton

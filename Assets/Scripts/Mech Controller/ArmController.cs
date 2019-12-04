@@ -55,7 +55,7 @@ public class ArmController : MonoBehaviour
                 LeftAnchor.rotation = LeftReal.rotation;
 
                 LeftHand.localRotation = LeftAnchor.localRotation;
-                LeftHand.localPosition = LeftAnchor.localPosition * distMul;
+                LeftHand.localPosition = (LeftAnchor.position - CenterEye.position) * distMul;
             } else if(LeftArm == ArmState.Launched)
             {
                 LeftAnchor.rotation = LeftReal.rotation;
@@ -69,7 +69,7 @@ public class ArmController : MonoBehaviour
                 RightAnchor.rotation = RightReal.rotation;
 
                 RightHand.localRotation = RightAnchor.localRotation;
-                RightHand.localPosition = RightAnchor.localPosition * distMul;
+                RightHand.localPosition = (RightAnchor.position - CenterEye.position) * distMul;
             }
             else if (RightArm == ArmState.Launched)
             {

@@ -10,7 +10,7 @@ public class RocketController : MonoBehaviour {
     public Rigidbody rb;
 
     public ParticleSystem explosion;
-    public AudioClip blastSound;
+    public AudioSource blastSound;
     public GameObject model;
 
     public bool alive;
@@ -66,7 +66,7 @@ public class RocketController : MonoBehaviour {
     {
         rb.velocity = new Vector3(0, 0, 0);
         alive = false;
-        AudioSource.PlayClipAtPoint(blastSound, transform.position);
+        blastSound.Play();
         explosion.Play();
         yield return null;
         Destroy(model);

@@ -43,7 +43,7 @@ public class enemy_turret_ai : Enemy
 
             elapsed += Time.deltaTime;
 
-            if (elapsed > 2.0)
+            if (elapsed > 10.0f)
             {
                 shoot(elapsed);
                 elapsed = 0.0f;
@@ -91,7 +91,7 @@ public class enemy_turret_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-        AudioSource.PlayClipAtPoint(blastSound, target.position);
+       // AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
 
@@ -111,7 +111,7 @@ public class enemy_turret_ai : Enemy
             Debug.Log("Dead but exploding");
             yield return null;
         }
-        spawner.shipDeadSig();
+        //spawner.shipDeadSig();
 
         Destroy(gameObject);
 

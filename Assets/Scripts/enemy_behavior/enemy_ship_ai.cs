@@ -19,7 +19,7 @@ public class enemy_ship_ai : Enemy
     public Transform ExplodeAt;
 
     public bool alive;
-    public float hp = 15.0f;
+    public float hp = 20.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +107,7 @@ public class enemy_ship_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-        AudioSource.PlayClipAtPoint(blastSound, target.position);
+    //    AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
         GetComponent<MeshRenderer>().enabled = false;
@@ -117,7 +117,7 @@ public class enemy_ship_ai : Enemy
             yield return null;
         }
 
-        spawner.shipDeadSig();
+        //spawner.shipDeadSig();
 
         Destroy(gameObject);
 

@@ -29,9 +29,9 @@ public class enemy_spawner : MonoBehaviour
         spawn();
 
         effect_time += Time.deltaTime;
-        if (effect_time >= 5.0f && curr_effect) {
-            curr_effect.SetActive(false);
-        }
+        //if (effect_time >= 5.0f && curr_effect) {
+        //    curr_effect.SetActive(false);
+        //}
 
 
         elapsed += Time.deltaTime;
@@ -42,9 +42,9 @@ public class enemy_spawner : MonoBehaviour
     {
         if (!curr_enemy) {
             int enemy_gen = Random.Range(0, 3);
-            curr_effect.SetActive(true);
-            
-            curr_effect.transform.position = transform.position;
+            //curr_effect.SetActive(true);
+            entrance_effect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
+            entrance_effect.transform.position = transform.position;
 
             if (enemy_gen == 0)
             {

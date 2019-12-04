@@ -9,7 +9,7 @@ public class enemy_drone_ai : Enemy
 
     public float movementSpeed = 20.0f;
     public float elapsed = 0.0f;
-    public AudioClip blastSound;
+    public AudioSource blastSound;
     public ParticleSystem explosion;
 
     public bool alive;
@@ -62,7 +62,7 @@ public class enemy_drone_ai : Enemy
         hp -= 10;
         if (other.gameObject.tag == "Player")
         {
-            PlayerStats.Instance.HP -= 10;
+            PlayerStats.Instance.HP -= 15;
             StartCoroutine(Dying());
         }
     }
@@ -74,7 +74,7 @@ public class enemy_drone_ai : Enemy
 
         if (other.gameObject.tag == "Player")
         {
-            PlayerStats.Instance.HP -= 10;
+            PlayerStats.Instance.HP -= 15;
             StartCoroutine(Dying());
         }
     }
@@ -88,7 +88,7 @@ public class enemy_drone_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-        AudioSource.PlayClipAtPoint(blastSound, target.position);
+        blastSound.Play();
         explosion.Play();
         yield return null;
         GetComponent<MeshRenderer>().enabled = false;
@@ -97,8 +97,6 @@ public class enemy_drone_ai : Enemy
             Debug.Log("Dead but exploding");
             yield return null;
         }
-        spawner.shipDeadSig();
-
 
         Destroy(gameObject);
 

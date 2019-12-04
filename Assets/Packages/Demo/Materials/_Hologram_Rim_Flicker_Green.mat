@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: _Hologram_Rim_Flicker_Green
   m_Shader: {fileID: 4800000, guid: 29fed12d8547e354e90be987488147c1, type: 3}
   m_ShaderKeywords: SCANLINES _GLOW_ON _SCAN_ON
@@ -90,15 +91,15 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Flicker: 0
-    - _FlickerSpeed: 10
+    - _FlickerSpeed: 0.01
     - _Fold: 63
     - _Glitch: 1
     - _GlitchIntensity: 0.2
-    - _GlitchSpeed: 12
+    - _GlitchSpeed: 9.1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GlowSpeed: 10
+    - _GlowSpeed: 2
     - _GlowTiling: 0.15
     - _Metallic: 0
     - _Mode: 0
@@ -108,8 +109,8 @@ Material:
     - _RimFalloff: 0.1
     - _RimPower: 1.29
     - _RimStrength: 2.5
-    - _ScanSpeed: -1.66
-    - _ScanTiling: 5.7
+    - _ScanSpeed: 0.32
+    - _ScanTiling: 10
     - _Scanline: 0
     - _ScanlineSize: 1
     - _ScanlineSpeed: 2
@@ -123,7 +124,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Direction: {r: 0, g: 1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0, g: 0.684, b: 0.21700664, a: 1}
+    - _MainColor: {r: 0, g: 0.5081084, b: 0.68235296, a: 1}
     - _RimColor: {r: 0.972, g: 1, b: 0, a: 1}
     - _ScanlineColor: {r: 1, g: 1, b: 1, a: 1}
