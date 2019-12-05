@@ -29,6 +29,7 @@ public class MechGrabbable : MonoBehaviour
         rb = grabbedAt_.rb;
         isKinematicFlag = rb.isKinematic;
         rb.isKinematic = defaultKinematic;
+        
         grabbedAt.transform.SetParent(grabbableParentParent, true);
         grabbableParent.SetParent(grabbedAt.transform, true);
     }

@@ -107,7 +107,6 @@ public class enemy_ship_ai : Enemy
         GetComponent<MeshRenderer>().enabled = false;
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
             yield return null;
         }
 

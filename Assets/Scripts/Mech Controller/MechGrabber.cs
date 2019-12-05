@@ -44,6 +44,20 @@ public class MechGrabber : MonoBehaviour
         }
     }
 
+    public void ForceGrabItem(MechGripAnchor grip)
+    {
+        if (hasGrabbed)
+            return;
+
+        Grabbed = grip;
+        Grabbed.Grab(this);
+        if(GrabRange.Contains(Grabbed))   
+            GrabRange.Remove(Grabbed);
+        handController.heldItem = Grabbed.grabObject.item;
+        handController.HoldingItem = true;
+        hasGrabbed = true;
+    }
+
     public void ForceGrabObject(MechGripAnchor grip)
     {
         if (hasGrabbed)
@@ -51,7 +65,8 @@ public class MechGrabber : MonoBehaviour
 
         Grabbed = grip;
         Grabbed.Grab(this);
-        GrabRange.Remove(Grabbed);
+        if (GrabRange.Contains(Grabbed))
+            GrabRange.Remove(Grabbed);
         handController.heldItem = Grabbed.grabObject.item;
         handController.HoldingItem = true;
         hasGrabbed = true;

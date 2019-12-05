@@ -153,11 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1e8c7421246045b632bb91a1d5501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Highlight: {fileID: 4268889838788715282}
+  explosionVFX: {fileID: 1932020164387597261}
+  RealObj: {fileID: 112364}
   visible: 1
   invis_timer: 0
-  explosionVFX: {fileID: 1932020164387597261}
-  Highlight: {fileID: 4268889838788715282}
-  RealObj: {fileID: 112364}
 --- !u!82 &8912244050410259586
 AudioSource:
   m_ObjectHideFlags: 0
