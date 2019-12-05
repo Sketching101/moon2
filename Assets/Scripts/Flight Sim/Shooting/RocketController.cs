@@ -40,10 +40,14 @@ public class RocketController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
+        if(!alive)
+        {
+            return;
+        }
         if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject
             && (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet"))
         {
-           StartCoroutine(Dying());
+            StartCoroutine(Dying());
         }
         if (collision.gameObject.tag == "Player")
         {
@@ -54,6 +58,11 @@ public class RocketController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(!alive)
+        {
+            return;
+        }
+
         if (collision.gameObject.tag == "Player")
         {
             PlayerStats.Instance.HP -= 10;
@@ -64,8 +73,9 @@ public class RocketController : MonoBehaviour {
 
     IEnumerator Dying()
     {
-        rb.velocity = new Vector3(0, 0, 0);
         alive = false;
+
+        rb.velocity = new Vector3(0, 0, 0);
         blastSound.Play();
         explosion.Play();
         yield return null;
@@ -73,7 +83,6 @@ public class RocketController : MonoBehaviour {
 
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
             yield return null;
         }
         

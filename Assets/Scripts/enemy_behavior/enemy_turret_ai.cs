@@ -5,19 +5,14 @@ using UnityEngine;
 public class enemy_turret_ai : Enemy
 {
     public float angleBetween = 0.0f;
-    public Transform target;
     public Transform createAt;
 
     public GameObject model;
 
     public GameObject rocketProjectile;
-    public float elapsed = 0.0f;
-    public AudioClip blastSound;
-    public ParticleSystem explosion;
 
     public Transform ExplodeAt;
 
-    public bool alive;
     public float hp = 10.0f;
     // Start is called before the first frame update
     void Start()
@@ -99,7 +94,6 @@ public class enemy_turret_ai : Enemy
         while (explosion.isPlaying)
         {
             GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
-            Debug.Log("Dead but exploding");
             yield return null;
         }
 
@@ -108,7 +102,6 @@ public class enemy_turret_ai : Enemy
         explosion.Play();
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
             yield return null;
         }
         //spawner.shipDeadSig();
@@ -123,9 +116,7 @@ public class enemy_turret_ai : Enemy
     }
 
     public void set_values(Transform new_target) {
-        createAt = transform;
-        ExplodeAt = new_target;
-        model = gameObject;
+        target = new_target;
     }
 
     public bool get_alive()

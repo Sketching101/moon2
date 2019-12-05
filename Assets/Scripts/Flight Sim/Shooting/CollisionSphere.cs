@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionSphere : MonoBehaviour {
+public class CollisionSphere : Shootable {
 
+    public ParticleSystem explosionVFX;
+    protected AudioSource explosionSFX;
+
+    public GameObject RealObj;
     public bool visible = true;
     public float invis_timer;
-    public ParticleSystem explosionVFX;
-    public GameObject Highlight;
-    public GameObject RealObj;
 
-    AudioSource explosionSFX;
-
-	// Use this for initialization
-	void Awake () {
+    protected override void Awake()
+    {
+        base.Awake();
         explosionSFX = gameObject.GetComponent<AudioSource>();
         explosionVFX = GetComponentInChildren<ParticleSystem>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    protected override void Update () {
+        base.Update();
         if (!visible)
         {
            invis_timer += Time.deltaTime;
@@ -32,37 +33,11 @@ public class CollisionSphere : MonoBehaviour {
         }
     }
 
-    public void ToggleHighlight(bool toggle)
+    public override void OnShot(GameObject other)
     {
-        if(Highlight.activeSelf != toggle)
-            Highlight.SetActive(toggle);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("COLLISION");
-        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade" || other.gameObject.tag == "enemy_bullet") && visible) {
-            if (other.gameObject.tag == "bullet")
-            {
-                Destroy(other.gameObject);
-            }
-            visible = false;
-            RealObj.SetActive(false);
-            gameObject.GetComponent<Collider>().enabled = false;
-            invis_timer = 0.0f;
-            explosionSFX.Play();
-            explosionVFX.Play();
-        }
-    }
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("COLLISION");
-        if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade" || other.gameObject.tag == "enemy_bullet") && visible)
+        if (visible)
         {
-            if (other.gameObject.tag == "bullet")
-            {
-                Destroy(other.gameObject);
-            }
+            base.OnShot(other);
             visible = false;
             RealObj.SetActive(false);
             gameObject.GetComponent<Collider>().enabled = false;

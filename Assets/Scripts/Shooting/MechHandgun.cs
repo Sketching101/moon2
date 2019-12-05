@@ -16,7 +16,7 @@ public class MechHandgun : MonoBehaviour
 
     int projectile_count = 0;
 
-    CollisionSphere lastCol = null;
+    Shootable lastCol = null;
 
     // Update is called once per frame
     void Update()
@@ -34,7 +34,7 @@ public class MechHandgun : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(Fingertip.position, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
-            CollisionSphere col = hit.transform.gameObject.GetComponent<CollisionSphere>();
+            Shootable col = hit.transform.gameObject.GetComponent<Shootable>();
             if (col != null)
             {
                 col.ToggleHighlight(true);

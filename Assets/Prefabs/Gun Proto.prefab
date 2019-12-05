@@ -49,9 +49,11 @@ MonoBehaviour:
   dissolveMaterial: {fileID: 1736214488}
   objectParent: {fileID: 7067936799139718889}
   holster: {fileID: 0}
+  gripAnchor: {fileID: 7067936799687398239}
   GunBarrel: {fileID: 7067936799244957077}
   Laser: {fileID: 306312897632263693, guid: 2d5a9401a767fc942acbb8c3331c24a5, type: 3}
   damage: 20
+  SFXIdx: 0
 --- !u!114 &1736214488
 MonoBehaviour:
   m_ObjectHideFlags: 0

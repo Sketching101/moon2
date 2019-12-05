@@ -17,8 +17,8 @@ Shader "OvrAvatar/Avatar_PC_SingleComponent"
         [NoScaleOffset] _RoughnessMap("Roughness Map", 2D) = "black" {}
 
         _BaseColor("Color Tint", Color) = (1.0,1.0,1.0,1.0)
-        _Dimmer("Dimmer", Range(0.0,1.0)) = 1.0
-        _Alpha("Alpha", Range(0.0,1.0)) = 1.0
+        _Dimmer("Dimmer", Range(0.0,1.0)) = 0.15
+        _Alpha("Alpha", Range(0.0,1.0)) = 0.1
 
         _DiffuseIntensity("Diffuse Intensity", Range(0.0,1.0)) = 0.3
         _SmoothnessMultiplier("Smoothness Multiplier", Range(0.0,1.0)) = 1.0

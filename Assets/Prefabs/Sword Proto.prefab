@@ -417,7 +417,9 @@ MonoBehaviour:
   dissolveMaterial: {fileID: 320454986}
   objectParent: {fileID: 6747900412327419322}
   holster: {fileID: 0}
+  gripAnchor: {fileID: 6747900411098747021}
   SwordTip: {fileID: 7120054193969534407}
+  trailRenderer: {fileID: 0}
 --- !u!114 &320454986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6747900412375900381
 Transform:
   m_ObjectHideFlags: 0

@@ -4,8 +4,9 @@ using UnityEngine;
 using ManualControls;
 
 public class AltVRGrabber : MonoBehaviour {
-    [SerializeField]
     public OVRInput.Controller Controller;
+
+    public MechGrabber mechGrabber;
 
     public AltVRGrabbable GrabbedObject = null;
 
@@ -67,6 +68,12 @@ public class AltVRGrabber : MonoBehaviour {
             GrabbedObject = grabbed;
             GrabbedObject.m_grabbedBy = this;
         }
+
+        InCabinHeldItem item;
+        if((item = grabbed.gameObject.GetComponent<InCabinHeldItem>()) != null)
+        {
+            mechGrabber.ForceGrabObject(item.ForceGrab());
+        }
     }
 
     private void LetGoObject()
@@ -77,4 +84,5 @@ public class AltVRGrabber : MonoBehaviour {
             GrabbedObject = null;
         }
     }
+    
 }
