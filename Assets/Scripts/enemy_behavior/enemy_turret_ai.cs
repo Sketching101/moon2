@@ -123,9 +123,7 @@ public class enemy_turret_ai : Enemy
     }
 
     public void set_values(Transform new_target) {
-        createAt = transform;
-        ExplodeAt = new_target;
-        model = gameObject;
+        target = new_target;
     }
 
     public bool get_alive()
