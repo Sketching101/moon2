@@ -5,20 +5,14 @@ using UnityEngine;
 public class enemy_ship_ai : Enemy
 {
     public float angleBetween = 0.0f;
-    public Transform target;
     public Transform createAt;
 
     public GameObject rocketProjectile;
-    public float movementSpeed = 15.0f;
-    public float elapsed = 0.0f;
     public bool moving_right = true;
-    public AudioClip blastSound;
-    public ParticleSystem explosion;
 
 
     public Transform ExplodeAt;
 
-    public bool alive;
     public float hp = 20.0f;
     // Start is called before the first frame update
     void Start()

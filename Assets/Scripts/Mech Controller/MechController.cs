@@ -15,6 +15,8 @@ public class MechController : MonoBehaviour
     private Joystick RotateJoystick;
     [SerializeField]
     private Throttle VelocityThrottle;
+    [SerializeField]
+    private Throttle ModeThrottle;
 
     [Header("Mech Objects")]
     [SerializeField]
@@ -52,6 +54,7 @@ public class MechController : MonoBehaviour
     string none = "None";
 
     [Header("Ship Objects")]
+    public TransformShip ShipTransformer;
 
     [Header("Mobility Stats")]
     [SerializeField]
@@ -83,6 +86,13 @@ public class MechController : MonoBehaviour
     void Awake()
     {
         velocity_t = MinVelocity;
+        if(CurrentMode == Mode.Mech)
+        {
+            TurnIntoMech();
+        } else
+        {
+            TurnIntoShip();
+        }
     }
 
 
@@ -96,6 +106,7 @@ public class MechController : MonoBehaviour
         if (IsMode(ship))
         {
             ShipUpdate();
+
         }
         else if (IsMode(mech))
         {
@@ -122,12 +133,29 @@ public class MechController : MonoBehaviour
 
     private void MechUpdate()
     {
-
+        if (ModeThrottle.GetThrottleOut() == -1f)
+        {
+            TurnIntoShip();
+        }
     }
 
     private void MechFixedUpdate()
     {
 
+    }
+
+    public void TurnIntoShip()
+    {
+        CurrentMode = Mode.Ship;
+        ShipTransformer.TurnIntoShip();
+        DissolvingHand.Instance.ToggleHands(false);
+    }
+
+    public void TurnIntoMech()
+    {
+        CurrentMode = Mode.Mech;
+        ShipTransformer.TurnIntoMech();
+        DissolvingHand.Instance.ToggleHands(true);
     }
 
     ///////////////////////// SHIP CONTROLLER ///////////////////////////
@@ -149,16 +177,11 @@ public class MechController : MonoBehaviour
             velocity_t = MaxVelocity;
 
         velocity_display = velocity_t;
-        /*
-        if (transform.position.y < 36)
-            MenuSelect.Instance.LoseGame();
-        if (Mathf.Abs(transform.position.x) > 2000)
-            MenuSelect.Instance.LoseGame();
-        if (Mathf.Abs(transform.position.z) > 2000)
-            MenuSelect.Instance.LoseGame();
-        if (Mathf.Abs(transform.position.y) > 2000)
-            MenuSelect.Instance.LoseGame();
-            */
+
+        if (ModeThrottle.GetThrottleOut() == 1f)
+        {
+            TurnIntoMech();
+        }
     }
 
     private void ShipFixedUpdate()

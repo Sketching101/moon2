@@ -10,6 +10,7 @@ public abstract class HeldItem : MonoBehaviour
 
     [Header("Important Anchors")]
     public Transform holster;
+    public MechGripAnchor gripAnchor;
 
     /// <summary>
     /// Primary action on index trigger pull
@@ -38,6 +39,11 @@ public abstract class HeldItem : MonoBehaviour
 
     public virtual void OnGrab()
     {
+        
+    }
 
+    public MechGripAnchor ForceGrab()
+    {
+        return gripAnchor;
     }
 }

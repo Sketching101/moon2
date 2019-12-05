@@ -102,7 +102,7 @@ public class HandController : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(launchHand.transform.position, dir, out hit, 4000, layerMask) && hit.transform.GetComponent<Terrain>() == null)
         {
-            CollisionSphere col = hit.transform.gameObject.GetComponent<CollisionSphere>();
+            Shootable col = hit.transform.gameObject.GetComponent<Shootable>();
             if (col != null)
             {
                 armState = ArmState.Launched;

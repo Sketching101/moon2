@@ -5,14 +5,8 @@ using UnityEngine;
 public class enemy_drone_ai : Enemy
 {
     public float angleBetween = 0.0f;
-    public Transform target;
 
-    public float movementSpeed = 20.0f;
-    public float elapsed = 0.0f;
-    public AudioSource blastSound;
-    public ParticleSystem explosion;
 
-    public bool alive;
     public float hp = 5.0f;
     // Start is called before the first frame update
     void Start()
@@ -94,7 +88,7 @@ public class enemy_drone_ai : Enemy
         GetComponent<MeshRenderer>().enabled = false;
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
+
             yield return null;
         }
 

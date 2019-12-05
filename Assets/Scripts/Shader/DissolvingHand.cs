@@ -56,6 +56,8 @@ public class DissolvingHand : MonoBehaviour
         {
             StartCoroutine(Generate());
         }
+        
+
     }
 
     public void PopulateArrays()
@@ -154,8 +156,22 @@ public class DissolvingHand : MonoBehaviour
         }
     }
 
+    public void ToggleHands(bool create)
+    {
+        if(create)
+        {
+            StartCoroutine(Generate());
+        } else
+        {
+            StartCoroutine(Dissolve());
+        }
+    }
+
     public IEnumerator Generate()
     {
+        ArmController.Instance.ResetHands();
+
+        Debug.Log("Generating");
         HandsExist = true;
 
         float dissolve = 1;
@@ -193,11 +209,12 @@ public class DissolvingHand : MonoBehaviour
             }
             yield return null;
         }
-
+        Debug.Log("Generated");
     }
 
     public IEnumerator Dissolve()
     {
+        Debug.Log("Dissolving");
         float dissolve = 0;
         yield return null;
         while (dissolve < 1)
@@ -231,6 +248,8 @@ public class DissolvingHand : MonoBehaviour
                 yield return null;
             }
         }
+        Debug.Log("Dissolved");
+        ArmController.Instance.HideHands();
         HandsExist = false;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ArmController : MonoBehaviour
 {
+    public static ArmController Instance { get; private set; }
+
     [Header("Robo Hands")]
     public Transform LeftHand;
     public Transform RightHand;
@@ -19,8 +21,10 @@ public class ArmController : MonoBehaviour
     public Transform LeftAnchor;
     public Transform RightAnchor;
     public Transform CenterEye;
+    public Transform MechObjects;
+    public Transform HideMechObjects;
 
-    
+
     private ArmState RightArm
     {
         get
@@ -44,18 +48,34 @@ public class ArmController : MonoBehaviour
     public Transform RestLeft;
     public Transform RestRight;
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (DissolvingHand.Instance.HandsExist)
         {
+
+
             if (LeftArm == ArmState.Attached)
             {
                 LeftAnchor.position = LeftReal.position;
                 LeftAnchor.rotation = LeftReal.rotation;
 
                 LeftHand.localRotation = LeftAnchor.localRotation;
-                LeftHand.localPosition = (LeftAnchor.position - CenterEye.position) * distMul;
+                LeftHand.position = (LeftAnchor.position - CenterEye.position) * distMul + CenterEye.position;
             } else if(LeftArm == ArmState.Launched)
             {
                 LeftAnchor.rotation = LeftReal.rotation;
@@ -69,7 +89,7 @@ public class ArmController : MonoBehaviour
                 RightAnchor.rotation = RightReal.rotation;
 
                 RightHand.localRotation = RightAnchor.localRotation;
-                RightHand.localPosition = (RightAnchor.position - CenterEye.position) * distMul;
+                RightHand.position = (RightAnchor.position - CenterEye.position) * distMul + CenterEye.position;
             }
             else if (RightArm == ArmState.Launched)
             {
@@ -81,11 +101,24 @@ public class ArmController : MonoBehaviour
         }
         else
         {
+            /*
             LeftHand.localRotation = RestLeft.localRotation;
             LeftHand.localPosition = RestLeft.localPosition;
             RightHand.localRotation = RestRight.localRotation;
             RightHand.localPosition = RestRight.localPosition;
+            */
         }
+    }
+
+    public void ResetHands()
+    {
+        MechObjects.localPosition = new Vector3();
+        MechObjects.localRotation = new Quaternion();
+    }
+
+    public void HideHands()
+    {
+        MechObjects.position = HideMechObjects.position;
     }
 }
 

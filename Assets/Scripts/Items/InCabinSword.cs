@@ -11,7 +11,12 @@ public class InCabinSword : InCabinHeldItem
 
     public override void OnHoverEnter()
     {
-        Transform moveTo = grabberHover[0].MechGrabberTr;
+        moveTo = grabberHover[0].MechGrabberTr;
+        heldItem.SetPosition(moveTo);
+    }
+
+    public override void OnHoverStay()
+    {
         heldItem.SetPosition(moveTo);
     }
 
@@ -22,6 +27,7 @@ public class InCabinSword : InCabinHeldItem
 
     public override void OnGrab()
     {
+        base.OnGrab();
         heldItem.OnGrab();
         heldItem.dissolveMaterial.ToggleItem();
     }

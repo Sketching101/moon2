@@ -15,11 +15,23 @@ public abstract class InCabinHeldItem : MonoBehaviour
 
     [SerializeField]protected List<AltVRGrabber> grabberHover;
 
+    protected Transform moveTo;
+
     public abstract void OnLetGo();
 
-    public abstract void OnGrab();
+    public virtual void OnGrab()
+    {
+
+    }
+
+    public MechGripAnchor ForceGrab()
+    {
+        return heldItem.ForceGrab();
+    }
 
     public abstract void OnHoverEnter();
+
+    public abstract void OnHoverStay();
 
     public abstract void OnHoverExit();
 
@@ -31,7 +43,6 @@ public abstract class InCabinHeldItem : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-
         AltVRGrabber grabber = other.gameObject.GetComponent<AltVRGrabber>();
         if (grabber != null && !grabberHover.Contains(grabber))
         {
@@ -52,4 +63,6 @@ public abstract class InCabinHeldItem : MonoBehaviour
             }
         }
     }
+    
+
 }

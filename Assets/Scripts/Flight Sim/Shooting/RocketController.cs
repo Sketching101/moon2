@@ -83,7 +83,6 @@ public class RocketController : MonoBehaviour {
 
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
             yield return null;
         }
         
