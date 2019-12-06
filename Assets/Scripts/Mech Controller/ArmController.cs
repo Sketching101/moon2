@@ -53,13 +53,12 @@ public class ArmController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        ResetHands();
     }
 
     // Update is called once per frame

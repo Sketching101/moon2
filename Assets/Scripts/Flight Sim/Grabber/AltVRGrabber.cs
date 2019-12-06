@@ -72,7 +72,7 @@ public class AltVRGrabber : MonoBehaviour {
         InCabinHeldItem item;
         if((item = grabbed.gameObject.GetComponent<InCabinHeldItem>()) != null)
         {
-            mechGrabber.ForceGrabObject(item.ForceGrab());
+            mechGrabber.ForceGrabItem(item.ForceGrab());
         }
     }
 

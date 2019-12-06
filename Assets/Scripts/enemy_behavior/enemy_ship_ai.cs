@@ -101,18 +101,15 @@ public class enemy_ship_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-    //    AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
         GetComponent<MeshRenderer>().enabled = false;
         while (explosion.isPlaying)
         {
-            Debug.Log("Dead but exploding");
             yield return null;
         }
 
-        //spawner.shipDeadSig();
-
+        PlayerStats.Instance.Score += 175;
         Destroy(gameObject);
 
     }

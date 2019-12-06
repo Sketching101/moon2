@@ -24,11 +24,17 @@ public class PauseMenu : MonoBehaviour
             if (isPaused)
             {
                 Resume();
+
             }
             else
             {
                 Pause();
             }
+        }
+        if (isPaused && OVRInput.GetDown(OVRInput.RawButton.A))
+        {
+            Resume();
+            SceneManager.LoadScene(0);
         }
     }
 

@@ -86,7 +86,7 @@ public class enemy_turret_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-       // AudioSource.PlayClipAtPoint(blastSound, target.position);
+        PlayerStats.Instance.Score += 100;
         explosion.Play();
         yield return null;
 
@@ -104,7 +104,6 @@ public class enemy_turret_ai : Enemy
         {
             yield return null;
         }
-        //spawner.shipDeadSig();
 
         Destroy(gameObject);
 

@@ -30,6 +30,8 @@ public class DissolvingHand : MonoBehaviour
         if (StartWHand)
         {
             HandsExist = true;
+            StartCoroutine(Generate());
+
             SetMeshesAndColliders();
         } else
         {
@@ -43,7 +45,9 @@ public class DissolvingHand : MonoBehaviour
         }
         else {
             dissolveWithThis = false;
+            Debug.Log("Already Exists");
         }
+
     }
 
     // Update is called once per frame
@@ -169,7 +173,6 @@ public class DissolvingHand : MonoBehaviour
 
     public IEnumerator Generate()
     {
-        ArmController.Instance.ResetHands();
 
         Debug.Log("Generating");
         HandsExist = true;

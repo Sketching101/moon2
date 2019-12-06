@@ -43,8 +43,11 @@ public class enemy_spawner : MonoBehaviour
         if (!curr_enemy) {
             int enemy_gen = Random.Range(0, 3);
             //curr_effect.SetActive(true);
-            entrance_effect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
-            entrance_effect.transform.position = transform.position;
+            if (entrance_effect != null)
+            {
+                entrance_effect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
+                entrance_effect.transform.position = transform.position;
+            }
 
             if (enemy_gen == 0)
             {
