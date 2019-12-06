@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public enemy_spawner spawner;
+    public EnemySpawner spawner;
 
     public float movementSpeed = 20.0f;
     public float elapsed = 0.0f;
