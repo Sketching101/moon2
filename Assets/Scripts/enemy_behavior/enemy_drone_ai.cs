@@ -24,6 +24,7 @@ public class enemy_drone_ai : Enemy
             //hp -= 0.01f
             if (hp <= 0)
             {
+                PlayerStats.Instance.Score += 50;
                 StartCoroutine(Dying());
             }
             Vector3 targetDir = target.position - transform.position;
@@ -54,9 +55,10 @@ public class enemy_drone_ai : Enemy
     private void OnTriggerEnter(Collider other)
     {
         hp -= 10;
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && alive)
         {
-            PlayerStats.Instance.HP -= 15;
+            alive = false;
+            PlayerStats.Instance.HP -= 200;
             StartCoroutine(Dying());
         }
     }
@@ -66,9 +68,10 @@ public class enemy_drone_ai : Enemy
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
             hp -= 10;
 
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && alive)
         {
-            PlayerStats.Instance.HP -= 15;
+            alive = false;
+            PlayerStats.Instance.HP -= 200;
             StartCoroutine(Dying());
         }
     }
@@ -76,7 +79,6 @@ public class enemy_drone_ai : Enemy
     private void explode()
     {
         hp -= 20;
-        //player.hp -= 20
     }
 
     IEnumerator Dying()

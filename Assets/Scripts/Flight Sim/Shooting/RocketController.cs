@@ -49,9 +49,9 @@ public class RocketController : MonoBehaviour {
         {
             StartCoroutine(Dying());
         }
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && alive)
         {
-            PlayerStats.Instance.HP -= 10;
+            PlayerStats.Instance.HP -= 50;
             StartCoroutine(Dying());
         }
     }
@@ -63,9 +63,9 @@ public class RocketController : MonoBehaviour {
             return;
         }
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && alive)
         {
-            PlayerStats.Instance.HP -= 10;
+            PlayerStats.Instance.HP -= 50;
             StartCoroutine(Dying());
         }
     }

@@ -148,14 +148,16 @@ public class MechController : MonoBehaviour
     {
         CurrentMode = Mode.Ship;
         ShipTransformer.TurnIntoShip();
-        DissolvingHand.Instance.ToggleHands(false);
+        if (DissolvingHand.Instance != null)
+            DissolvingHand.Instance.ToggleHands(false);
     }
 
     public void TurnIntoMech()
     {
         CurrentMode = Mode.Mech;
         ShipTransformer.TurnIntoMech();
-        DissolvingHand.Instance.ToggleHands(true);
+        if(DissolvingHand.Instance != null)
+            DissolvingHand.Instance.ToggleHands(true);
     }
 
     ///////////////////////// SHIP CONTROLLER ///////////////////////////

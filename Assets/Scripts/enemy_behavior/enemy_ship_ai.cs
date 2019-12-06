@@ -101,7 +101,6 @@ public class enemy_ship_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
-    //    AudioSource.PlayClipAtPoint(blastSound, target.position);
         explosion.Play();
         yield return null;
         GetComponent<MeshRenderer>().enabled = false;
@@ -110,8 +109,7 @@ public class enemy_ship_ai : Enemy
             yield return null;
         }
 
-        //spawner.shipDeadSig();
-
+        PlayerStats.Instance.Score += 175;
         Destroy(gameObject);
 
     }

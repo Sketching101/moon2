@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class ControlsAction : MonoBehaviour
 {
@@ -30,9 +31,10 @@ public class ControlsAction : MonoBehaviour
     public void QuitApplication()
     {
 #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else        
         Application.Quit();
-#else
-        UnityEditor.isPlaying = false;
+
 #endif
     }
 }

@@ -10,19 +10,6 @@ public class TransformShip : MonoBehaviour
     public float rotationSpeed;
     private IEnumerator activeCoroutine;
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            TurnIntoMech();
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            TurnIntoShip();
-        }
-    }
-
     public void TurnIntoShip()
     {
         if (activeCoroutine != null)
@@ -31,6 +18,7 @@ public class TransformShip : MonoBehaviour
             activeCoroutine = null;
         }
 
+        Debug.Log("turn into ship");
         activeCoroutine = TurnIntoShipCoroutine();
         StartCoroutine(activeCoroutine);
     }

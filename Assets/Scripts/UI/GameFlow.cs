@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameFlow : MonoBehaviour
 {
 
-    public static float currentHP {
+    public static float currentHP
+    {
         get
         {
             return PlayerStats.Instance.HP;
@@ -63,5 +65,11 @@ public class GameFlow : MonoBehaviour
         score.GetComponent<Text>().text = currentScore.ToString();
         pauseMenuScore.GetComponent<Text>().text = currentScore.ToString();
         healthPoints.GetComponent<Text>().text = currentHP + " / 1000";
+
+        //Death State
+        if (currentHP <= 0)
+        {
+            SceneManager.LoadScene("StartMenu");
+        }
     }
 }
