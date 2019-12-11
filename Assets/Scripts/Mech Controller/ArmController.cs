@@ -66,7 +66,7 @@ public class ArmController : MonoBehaviour
     {
         if (DissolvingHand.Instance.HandsExist)
         {
-
+            ResetHands();
 
             if (LeftArm == ArmState.Attached)
             {
@@ -111,8 +111,11 @@ public class ArmController : MonoBehaviour
 
     public void ResetHands()
     {
-        MechObjects.localPosition = new Vector3();
-        MechObjects.localRotation = new Quaternion();
+        if (MechObjects.localPosition != new Vector3())
+        {
+            MechObjects.localPosition = new Vector3();
+            MechObjects.localRotation = new Quaternion();
+        }
     }
 
     public void HideHands()

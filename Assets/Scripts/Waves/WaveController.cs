@@ -37,17 +37,28 @@ public class WaveController : MonoBehaviour
     public void NextWave()
     {
         CurrentWave++;
+
         if (CurrentWave >= WaveArr.Length)
+        {
+            if (CurrentWave == WaveArr.Length && NextLevelMenu.Instance != null)
+            {
+                NextLevelMenu.Instance.Pause();
+            }
+
             return;
+        }
+
 
         WaveSpawnerParents[CurrentWave].EnableSpawners(WaveArr[CurrentWave]);
     }
     
     public void CreateWaveData(string name)
     {
+#if UNITY_EDITOR
         WaveData asset = ScriptableObject.CreateInstance<WaveData>();
         name = name.Replace(" ", "_");
         AssetDatabase.CreateAsset(asset, "Assets/Resources/Waves/" + name + ".asset");
         AssetDatabase.SaveAssets();
+#endif
     }
 }
