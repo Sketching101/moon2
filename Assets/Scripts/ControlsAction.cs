@@ -13,7 +13,7 @@ public class ControlsAction : MonoBehaviour
     {
         if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
-            LoadScene("enemy");
+            LoadScene("Level1");
         } else if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             ControlsCanvas.SetActive(!ControlsCanvas.activeSelf);

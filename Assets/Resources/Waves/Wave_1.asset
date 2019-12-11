@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8a71241ad840e459f001a84c5da3de, type: 3}
   m_Name: Wave_1
   m_EditorClassIdentifier: 
-  EnemyCount: 8
+  EnemyCount: 4
   EnemiesToSpawn: []

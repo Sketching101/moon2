@@ -35,7 +35,7 @@ public class GameFlow : MonoBehaviour
 
     public Transform score;
     public Transform pauseMenuScore;
-
+    public RectTransform nextLevelScore;
     void Start()
     {
         //Initialize bar to green color
@@ -64,6 +64,7 @@ public class GameFlow : MonoBehaviour
         //Updates score value
         score.GetComponent<Text>().text = currentScore.ToString();
         pauseMenuScore.GetComponent<Text>().text = currentScore.ToString();
+        nextLevelScore.GetComponent<Text>().text = currentScore.ToString();
         healthPoints.GetComponent<Text>().text = currentHP + " / 1000";
 
         //Death State
