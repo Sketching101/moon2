@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.RawButton.Start))
         {
             //Debug.Log("PauseMenu.cs: Toggling Pause Menu");
             if (isPaused)

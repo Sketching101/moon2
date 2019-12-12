@@ -7,6 +7,8 @@ public class enemy_ship_ai : Enemy
     public float angleBetween = 0.0f;
     public Transform createAt;
 
+    public float timeBetweenFire;
+
     public GameObject rocketProjectile;
     public bool moving_right = true;
 
@@ -40,14 +42,14 @@ public class enemy_ship_ai : Enemy
 
             elapsed += Time.deltaTime;
 
-            if (elapsed > 7.5 && moving_right)
+            if (elapsed > timeBetweenFire && moving_right)
             {
                 elapsed = 0.0f;
                 moving_right = false;
                 shoot();
             }
 
-            if (elapsed > 7.5 && !moving_right)
+            if (elapsed > timeBetweenFire && !moving_right)
             {
                 elapsed = 0.0f;
                 moving_right = true;
@@ -101,15 +103,28 @@ public class enemy_ship_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
+        PlayerStats.Instance.Score += 170;
         explosion.Play();
+        blastSound.Play();
         yield return null;
+
+        GetComponent<Rigidbody>().useGravity = true;
+        while (explosion.isPlaying)
+        {
+            GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
+            yield return null;
+        }
+
+        GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<MeshRenderer>().enabled = false;
+        explosion.Play();
+        blastSound.Play();
+
         while (explosion.isPlaying)
         {
             yield return null;
         }
 
-        PlayerStats.Instance.Score += 175;
         Destroy(gameObject);
 
     }

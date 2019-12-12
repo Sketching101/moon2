@@ -7,9 +7,13 @@ public class PanicLighting : MonoBehaviour
     public AnimationCurve panicCurve;
     public Color panicColor;
 
+    [Header("Panic Indicators")]
     public Light[] panicLights;
+    public ParticleSystem[] smokeVFX;
+
     private float time_t = 0;
     public float panicAtHP;
+    public float[] smokeAtHP;
     private bool enablePanic;
     private bool disablePanic;
 
@@ -43,8 +47,23 @@ public class PanicLighting : MonoBehaviour
             }
         }
 
-        if(enablePanic || disablePanic)
+        for(int j = 0; j < smokeAtHP.Length; j++)
         {
+            if (smokeAtHP[j] > PlayerStats.Instance.HP)
+            {
+                if(!smokeVFX[j].isPlaying)
+                    smokeVFX[j].Play();
+            } else
+            {
+                if (smokeVFX[j].isPlaying)
+                    smokeVFX[j].Stop();
+            }
+        }
+
+
+        if (enablePanic || disablePanic)
+        {
+   
 
             enablePanic = false;
             disablePanic = false;

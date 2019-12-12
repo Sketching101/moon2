@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using ManualControls;
 
 public class MusicManager : MonoBehaviour {
 
@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour {
     public AudioClip YouAreDead;
     [Header("Music Source")]
     public AudioSource MusicSpeakers;
+    public Throttle volume;
 
     public bool DontPlay;
 
@@ -33,8 +34,14 @@ public class MusicManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (DontPlay) return;
-        if (!MusicSpeakers.isPlaying && Music.Count > 0)
+        if (DontPlay)
+        {
+            if (!MusicSpeakers.isPlaying)
+            {
+                MusicSpeakers.Pause();
+            }
+        }
+        else if (!MusicSpeakers.isPlaying && Music.Count > 0)
         {
             MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];
             musicIdx++;

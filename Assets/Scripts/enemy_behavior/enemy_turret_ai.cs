@@ -6,7 +6,7 @@ public class enemy_turret_ai : Enemy
 {
     public float angleBetween = 0.0f;
     public Transform createAt;
-
+    public float timeBetweenFire;
     public GameObject model;
 
     public GameObject rocketProjectile;
@@ -38,7 +38,7 @@ public class enemy_turret_ai : Enemy
 
             elapsed += Time.deltaTime;
 
-            if (elapsed > 10.0f)
+            if (elapsed > timeBetweenFire)
             {
                 shoot(elapsed);
                 elapsed = 0.0f;
@@ -88,6 +88,7 @@ public class enemy_turret_ai : Enemy
         alive = false;
         PlayerStats.Instance.Score += 100;
         explosion.Play();
+        blastSound.Play();
         yield return null;
 
         GetComponent<Rigidbody>().useGravity = true;
@@ -100,6 +101,8 @@ public class enemy_turret_ai : Enemy
         GetComponent<Rigidbody>().isKinematic = true;
         Destroy(model);
         explosion.Play();
+        blastSound.Play();
+
         while (explosion.isPlaying)
         {
             yield return null;

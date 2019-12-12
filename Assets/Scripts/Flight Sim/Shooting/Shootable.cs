@@ -40,12 +40,21 @@ public class Shootable : MonoBehaviour
         {
             OnShot(other.gameObject);
         }
+
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 75;
+        }
     }
     private void OnCollisionEnter(Collision other)
     {
         if ((other.gameObject.tag == "bullet" || other.gameObject.tag == "Blade" || other.gameObject.tag == "enemy_bullet"))
         {
             OnShot(other.gameObject);
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerStats.Instance.HP -= 75;
         }
     }
 }

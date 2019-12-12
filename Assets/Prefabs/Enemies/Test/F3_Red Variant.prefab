@@ -28958,7 +28958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 0}
-  movementSpeed: 1
+  movementSpeed: 3
   elapsed: 0
   blastSound: {fileID: 1019487096469710136}
   explosion: {fileID: 881861586}
@@ -28966,6 +28966,7 @@ MonoBehaviour:
   alive: 0
   angleBetween: 0
   createAt: {fileID: 1908237822}
+  timeBetweenFire: 3
   rocketProjectile: {fileID: 3225755905126249718, guid: 2435fdea0d801cb499cdc0f558a9e136,
     type: 3}
   moving_right: 1
