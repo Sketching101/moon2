@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ManualControls;
 
 public class MusicManager : MonoBehaviour {
 
     public System.Random rng = new System.Random();
+
+    public static MusicManager Instance { get; private set; }
 
     [Header("In-Game Music")]
     public AudioClip[] MusicToShuffle;
@@ -13,8 +14,8 @@ public class MusicManager : MonoBehaviour {
     public AudioClip YouAreDead;
     [Header("Music Source")]
     public AudioSource MusicSpeakers;
-    public Throttle volume;
-
+    [SerializeField]
+    private UnityEngine.Audio.AudioMixerGroup audioMixer;
     public bool DontPlay;
 
     int musicIdx = 0;
@@ -23,33 +24,72 @@ public class MusicManager : MonoBehaviour {
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         Music = new List<int>();
         for(int i = 0; i < MusicToShuffle.Length; i++)
         {
             Music.Add(i);
         }
 
-        Music = ShuffleList(Music);
+        MusicSpeakers.outputAudioMixerGroup = audioMixer;
+
+        ShufflePlaylist();
     }
 
     // Update is called once per frame
     void Update () {
         if (DontPlay)
         {
-            if (!MusicSpeakers.isPlaying)
+            if (MusicSpeakers.isPlaying)
             {
                 MusicSpeakers.Pause();
             }
         }
         else if (!MusicSpeakers.isPlaying && Music.Count > 0)
         {
-            MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];
-            musicIdx++;
-            if (musicIdx >= MusicToShuffle.Length)
-                musicIdx = 0;
-
-            MusicSpeakers.Play();
+            NextSong();
         }
+    }
+
+    public void NextSong()
+    {
+        if (musicIdx >= MusicToShuffle.Length - 1)
+        {
+            musicIdx = -1;
+        }
+
+        musicIdx++;
+
+        MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];
+
+        MusicSpeakers.Play();
+    }
+
+    public void PrevSong()
+    {
+        if (musicIdx <= 0)
+        {
+            musicIdx = MusicToShuffle.Length;
+        }
+
+        musicIdx--;
+
+        MusicSpeakers.clip = MusicToShuffle[Music[musicIdx]];
+
+        MusicSpeakers.Play();
+    }
+
+    public void ShufflePlaylist()
+    {
+        Music = ShuffleList(Music);
     }
 
     private List<E> ShuffleList<E>(List<E> inputList)
@@ -65,5 +105,16 @@ public class MusicManager : MonoBehaviour {
         }
 
         return randomList; //return the new random list
+    }
+
+    public void Pause()
+    {
+        if(MusicSpeakers.isPlaying)
+        {
+            MusicSpeakers.Pause();
+        } else
+        {
+            MusicSpeakers.UnPause();
+        }
     }
 }

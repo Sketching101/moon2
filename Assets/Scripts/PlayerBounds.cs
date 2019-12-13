@@ -18,8 +18,6 @@ public class PlayerBounds : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

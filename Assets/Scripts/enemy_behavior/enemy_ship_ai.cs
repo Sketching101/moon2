@@ -15,7 +15,7 @@ public class enemy_ship_ai : Enemy
 
     public Transform ExplodeAt;
 
-    public float hp = 20.0f;
+    public float HP = 20.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +30,7 @@ public class enemy_ship_ai : Enemy
     {
         if (alive)
         {
-            if (hp <= 0)
+            if (HP <= 0)
             {
                 StartCoroutine(Dying());
             }
@@ -69,16 +69,20 @@ public class enemy_ship_ai : Enemy
     }
 
 
+    public override void ChangeHP(float changeBy)
+    {
+        HP += changeBy;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
-            hp -= 10;
+            HP -= 10;
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
-            hp -= 10;
+            HP -= 10;
     }
 
     void shoot() { 
@@ -102,6 +106,7 @@ public class enemy_ship_ai : Enemy
 
     IEnumerator Dying()
     {
+        DisableColliders();
         alive = false;
         PlayerStats.Instance.Score += 170;
         explosion.Play();

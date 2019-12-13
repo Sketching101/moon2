@@ -985,7 +985,7 @@ MonoBehaviour:
   smokeVFX:
   - {fileID: 2853122604705997981}
   - {fileID: 4678627058765543793}
-  panicAtHP: 500
+  panicAtHP: 400
   smokeAtHP:
   - 300
   - 100
@@ -4345,7 +4345,7 @@ MonoBehaviour:
   body: {fileID: 8428461746583849737}
   shipMode: {fileID: 5985522369670459212}
   mechMode: {fileID: 3233446224851327013}
-  rotationSpeed: 1
+  rotationSpeed: 2
 --- !u!1 &8901438099098609677
 GameObject:
   m_ObjectHideFlags: 0
@@ -4522,7 +4522,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 3000
+  far clip plane: 5000
   field of view: 90
   orthographic: 0
   orthographic size: 5
@@ -7423,7 +7423,8 @@ AudioSource:
   m_GameObject: {fileID: 8901945969678378253}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5432204681306847971, guid: aa53e4194ff904a4e971d3005d22bdf8,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.49
@@ -8055,7 +8056,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 3000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -10906,7 +10907,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 3000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -14226,11 +14227,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasPauseMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 8606920606470886861, guid: 7714dd0981cffe645bc9e11ed35664ab,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8606920607808145686, guid: 7714dd0981cffe645bc9e11ed35664ab,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -14508,20 +14504,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 6f8449a4663a4fd44b6140772d4f39f9, type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 6f8449a4663a4fd44b6140772d4f39f9, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800002, guid: 6f8449a4663a4fd44b6140772d4f39f9, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11400000, guid: 6f8449a4663a4fd44b6140772d4f39f9, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f8449a4663a4fd44b6140772d4f39f9, type: 3}
 --- !u!198 &2853122604705997981 stripped
 ParticleSystem:
@@ -14590,20 +14573,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: e37de961c0fe47b439a8a7c1c1b6213d, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: e37de961c0fe47b439a8a7c1c1b6213d, type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800002, guid: e37de961c0fe47b439a8a7c1c1b6213d, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11400000, guid: e37de961c0fe47b439a8a7c1c1b6213d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e37de961c0fe47b439a8a7c1c1b6213d, type: 3}
 --- !u!4 &4678627058784943153 stripped
 Transform:

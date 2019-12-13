@@ -60,8 +60,7 @@ public class ShipUI : MonoBehaviour
             string st = shipController.velocity_display.ToString();
             st = st.Split('.')[0];
             VelocityDisplay.text = string.Format("{0} m/s", st);
-
-            ScoreDisplay.text = string.Format("{0} pts", ScoreController.Instance.score);
+            ScoreDisplay.text = string.Format("{0} pts", ScoreController.Instance.scoreString());
 
             if (PrimRdy == projectileScript.CooldownPrimary)
             {

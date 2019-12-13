@@ -12,8 +12,8 @@ public class enemy_turret_ai : Enemy
     public GameObject rocketProjectile;
 
     public Transform ExplodeAt;
+    public float HP = 100.0f;
 
-    public float hp = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,7 @@ public class enemy_turret_ai : Enemy
         if (alive)
         {
             //hp -= 0.01f;
-            if (hp <= 0)
+            if (HP <= 0)
             {
                 StartCoroutine(Dying());
             }
@@ -48,11 +48,15 @@ public class enemy_turret_ai : Enemy
 
     }
 
+    public override void ChangeHP(float changeBy)
+    {
+        HP += changeBy;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
         {
-            hp -= 10;
+            HP -= 10;
         }
     }
 
@@ -60,7 +64,7 @@ public class enemy_turret_ai : Enemy
     {
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
         {
-            hp -= 10;
+            HP -= 10;
             ExplodeAt.position = other.GetContact(0).point;
         }
     }
@@ -85,6 +89,7 @@ public class enemy_turret_ai : Enemy
 
     IEnumerator Dying()
     {
+        DisableColliders();
         alive = false;
         PlayerStats.Instance.Score += 100;
         explosion.Play();

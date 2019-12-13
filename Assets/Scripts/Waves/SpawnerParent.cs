@@ -48,7 +48,6 @@ public class SpawnerParent : MonoBehaviour
                 }
                 if(!spawner.currEnemy)
                 {
-                    Debug.Log("Spawning enemy");
                     if(waveInfo.EnemiesToSpawn.Length > enemiesSpawned)
                         spawner.spawn(waveInfo.EnemiesToSpawn[enemiesSpawned].GetEnemyType());
                     else

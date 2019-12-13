@@ -32,8 +32,6 @@ public class InputController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

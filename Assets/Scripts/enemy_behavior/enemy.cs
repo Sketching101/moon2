@@ -14,4 +14,17 @@ public class Enemy : MonoBehaviour
 
     public bool alive;
 
+    protected void DisableColliders()
+    {
+        Collider[] colliders = GetComponents<Collider>();
+        foreach(Collider col in colliders)
+        {
+            col.enabled = false;
+        }
+    }
+
+    public virtual void ChangeHP(float changeBy)
+    {
+
+    }
 }

@@ -42,6 +42,7 @@ namespace ManualControls
         float speed = 1.5f;
         float startTime = 0.0f;
         bool GrabbedFlag = false;
+        public bool zeroOnLetGo = false;
 
         OVRInput.Controller LastGrabbedBy = OVRInput.Controller.None;
 
@@ -78,7 +79,6 @@ namespace ManualControls
             if (!GripObject.isGrabbed && GrabbedFlag)
             {
                 GrabbedFlag = false;
-                Debug.Log("Let go");
                 StartCoroutine(OnLetGo());
             }
             else if (GripObject.isGrabbed && !GrabbedFlag)
@@ -161,7 +161,9 @@ namespace ManualControls
 
         private Vector3 FindNearestY()
         {
-            if (ThrottleYOut > 0.6)
+            if (zeroOnLetGo)
+                return SnapPositions[1].localPosition;
+            else if (ThrottleYOut > 0.6)
                 return SnapPositions[2].localPosition;
             else if (ThrottleYOut > -0.6)
                 return SnapPositions[1].localPosition;
@@ -171,23 +173,15 @@ namespace ManualControls
 
         private float FindNearestYVal()
         {
-            if (ThrottleYOut > 0.6)
+            if (zeroOnLetGo)
+                ThrottleYOut = ThrottleYSnap[1];
+            else if (ThrottleYOut > 0.6)
                 ThrottleYOut = ThrottleYSnap[2];
             else if (ThrottleYOut > -0.6)
                 ThrottleYOut = ThrottleYSnap[1];
             else
                 ThrottleYOut = ThrottleYSnap[0];
             return ThrottleYOut;
-            /*
-            float LastFound = 100;
-            foreach (float SnapTo in ThrottleYSnap)
-            {
-                if (Mathf.Abs(ThrottleYOut - SnapTo) < Mathf.Abs(ThrottleYOut - LastFound))
-                {
-                    LastFound = SnapTo;
-                }
-            }
-            return LastFound;*/
         }
     }
 }
