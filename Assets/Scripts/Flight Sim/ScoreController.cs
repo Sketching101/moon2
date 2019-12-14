@@ -25,4 +25,9 @@ public class ScoreController : MonoBehaviour {
     {
         score += increaseBy;
     }
+
+    public string scoreString()
+    {
+        return score.ToString().Split('.')[0];
+    }
 }

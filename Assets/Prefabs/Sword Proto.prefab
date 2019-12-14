@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 6771064222292245594}
   - component: {fileID: 6747450340248550576}
   - component: {fileID: 6747450340248550577}
+  - component: {fileID: 3364193491789853977}
   m_Layer: 0
   m_Name: Prefab_Sword_Cyber_Magma
   m_TagString: Untagged
@@ -234,7 +235,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6747450340248550582}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.0695372, y: 0.70226246, z: 0}
@@ -255,6 +256,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3364193491789853977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747450340248550582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23b366537b31b54197288f122deabeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _origin: {x: 0, y: -1, z: 0}
+  _direction: {x: 0, y: 1, z: 0}
 --- !u!1 &6747900411040756927
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +434,8 @@ MonoBehaviour:
   holster: {fileID: 0}
   gripAnchor: {fileID: 6747900411098747021}
   SwordTip: {fileID: 7120054193969534407}
-  trailRenderer: {fileID: 0}
+  trailRenderer: {fileID: 6862409395882932379}
+  _blade: {fileID: 3364193491789853977}
 --- !u!114 &320454986
 MonoBehaviour:
   m_ObjectHideFlags: 0

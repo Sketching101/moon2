@@ -15,6 +15,14 @@ public class LightningController : MonoBehaviour
     public Transform aimForward;
     [SerializeField]
     private Transform targetPos;
+    public float dmg = 10;
+
+    public float chargeUntil = 20;
+    public float charge = 0;
+
+    private bool burnout = false;
+
+    private Physics physics;
 
     bool targeted = false;
 
@@ -29,7 +37,12 @@ public class LightningController : MonoBehaviour
 
     private void Update()
     {
-        if (OVRInput.Get(OVRInput.RawButton.Y))
+        if(charge > chargeUntil)
+        {
+            burnout = false;
+        }
+
+        if (OVRInput.Get(OVRInput.RawButton.Y) && !burnout)
         {
             if (targetPos == null)
             {
@@ -49,23 +62,22 @@ public class LightningController : MonoBehaviour
                 Rigidbody tarRb;
                 if ((tarRb = targetPos.GetComponent<Rigidbody>()) != null)
                 {
-                    tarRb.AddForce((transform.position - targetPos.position)*5);
-                    Debug.Log("Pullll");
-                }
-            }
-
-            if(targeted && (targetPos.position - transform.position).magnitude < 20)
-            {
-                if(handController.handState != HandState.Open)
-                {
-                    MechGripAnchor gripAnchor;
-                    //if((gripAnchor = targetPos.GetComponent<)
-                    //mechGrabber.ForceGrabObject(targeted)
+                    tarRb.AddForce((transform.position - targetPos.position));
+                    if (tarRb.tag == "Enemy") {
+                        Enemy enemy = tarRb.GetComponent<Enemy>();
+                        PlayerStats.Instance.AddHP(dmg * Time.deltaTime);
+                        enemy.ChangeHP(-1 * dmg * Time.deltaTime);
+                        charge -= Time.deltaTime * 10;
+                    }
                 }
             }
         }
         else
         {
+            if(charge <= chargeUntil)
+            {
+                charge += Time.deltaTime;
+            }
             targeted = false;
         }
     }
@@ -76,11 +88,12 @@ public class LightningController : MonoBehaviour
 
         Vector3 dir = aimForward.forward;
 
-        RaycastHit hit;
+        RaycastHit[] hits;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.SphereCast(aimForward.position, 10, dir, out hit, 20000, layerMask))
+        hits = physics.ConeCastAll(aimForward.position, 100, dir, 1000, 30, layerMask, "Enemy");
+        if (hits.Length != 0)
         {
-            targetPos = hit.transform;
+            targetPos = hits[0].transform;
             return true;
         } else
         {

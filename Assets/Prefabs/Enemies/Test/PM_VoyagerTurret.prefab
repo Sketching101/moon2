@@ -29690,6 +29690,7 @@ MonoBehaviour:
   alive: 0
   angleBetween: 0
   createAt: {fileID: 135772130828678660}
+  timeBetweenFire: 4
   model: {fileID: 136864920522543642}
   rocketProjectile: {fileID: 3225755905126249718, guid: 2435fdea0d801cb499cdc0f558a9e136,
     type: 3}
@@ -31504,7 +31505,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 986d6b30567e30e428f3f21373fe45ca, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.429
   m_Pitch: 1
   Loop: 0
   Mute: 0

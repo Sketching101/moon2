@@ -8,7 +8,7 @@ public class SingleShipSpawner : EnemySpawner
     {
         if (enabledSpawner)
         {
-            effect_time += Time.deltaTime;
+            effectTime += Time.deltaTime;
 
             elapsed += Time.deltaTime;
         }

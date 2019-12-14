@@ -45,7 +45,6 @@ public class DissolvingHand : MonoBehaviour
         }
         else {
             dissolveWithThis = false;
-            Debug.Log("Already Exists");
         }
 
     }
@@ -173,8 +172,6 @@ public class DissolvingHand : MonoBehaviour
 
     public IEnumerator Generate()
     {
-
-        Debug.Log("Generating");
         HandsExist = true;
 
         float dissolve = 1;
@@ -212,12 +209,10 @@ public class DissolvingHand : MonoBehaviour
             }
             yield return null;
         }
-        Debug.Log("Generated");
     }
 
     public IEnumerator Dissolve()
     {
-        Debug.Log("Dissolving");
         float dissolve = 0;
         yield return null;
         while (dissolve < 1)
@@ -251,7 +246,6 @@ public class DissolvingHand : MonoBehaviour
                 yield return null;
             }
         }
-        Debug.Log("Dissolved");
         ArmController.Instance.HideHands();
         HandsExist = false;
     }

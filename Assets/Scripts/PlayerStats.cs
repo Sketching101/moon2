@@ -6,6 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float HP = 1000;
     public int Score;
+    private float maxHP;
 
     public static PlayerStats Instance { get; private set; } // static singleton
 
@@ -20,5 +21,11 @@ public class PlayerStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        maxHP = HP;
+    }
+
+    public void AddHP(float addHP)
+    {
+        HP = Mathf.Min(maxHP, addHP + HP);
     }
 }

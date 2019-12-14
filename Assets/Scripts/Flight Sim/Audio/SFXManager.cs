@@ -11,11 +11,21 @@ public class SFXManager : MonoBehaviour
     [Header("Audio Outputs")]
     [SerializeField]
     private AudioSource[] SourceSFX;
+    [SerializeField]
+    private UnityEngine.Audio.AudioMixerGroup audioMixer;
 
     void Awake()
     {
-        if (Instance == null) { Instance = this; }
-        else { Destroy(gameObject); }
+        if (Instance == null) {
+            Instance = this;
+            for(int i = 0; i < SourceSFX.Length; i++)
+            {
+                SourceSFX[i].outputAudioMixerGroup = audioMixer;
+            }
+        }
+        else {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>

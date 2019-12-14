@@ -7,13 +7,14 @@ public class enemy_ship_ai : Enemy
     public float angleBetween = 0.0f;
     public Transform createAt;
 
+    public float timeBetweenFire;
+
     public GameObject rocketProjectile;
     public bool moving_right = true;
 
-
     public Transform ExplodeAt;
 
-    public float hp = 20.0f;
+    public float HP = 20.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class enemy_ship_ai : Enemy
     {
         if (alive)
         {
-            if (hp <= 0)
+            if (HP <= 0)
             {
                 StartCoroutine(Dying());
             }
@@ -40,14 +41,14 @@ public class enemy_ship_ai : Enemy
 
             elapsed += Time.deltaTime;
 
-            if (elapsed > 7.5 && moving_right)
+            if (elapsed > timeBetweenFire && moving_right)
             {
                 elapsed = 0.0f;
                 moving_right = false;
                 shoot();
             }
 
-            if (elapsed > 7.5 && !moving_right)
+            if (elapsed > timeBetweenFire && !moving_right)
             {
                 elapsed = 0.0f;
                 moving_right = true;
@@ -67,16 +68,41 @@ public class enemy_ship_ai : Enemy
     }
 
 
+    public override void ChangeHP(float changeBy)
+    {
+        HP += changeBy;
+    }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
-            hp -= 10;
+            HP -= 10;
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
-            hp -= 10;
+            HP -= 10;
     }
 
     void shoot() { 
@@ -101,16 +127,37 @@ public class enemy_ship_ai : Enemy
     IEnumerator Dying()
     {
         alive = false;
+        DisableColliders();
+        PlayerStats.Instance.Score += 170;
         explosion.Play();
+        if (!slicedCopy)
+            blastSound.Play();
         yield return null;
-        GetComponent<MeshRenderer>().enabled = false;
+
+
+
+        rb.useGravity = true;
+        while (explosion.isPlaying)
+        {
+            rb.AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
+            yield return null;
+        }
+        if (spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
+        rb.isKinematic = true;
+        mesh.enabled = false;
+        explosion.Play();
+        if (!slicedCopy)
+            blastSound.Play();
+
         while (explosion.isPlaying)
         {
             yield return null;
         }
 
-        PlayerStats.Instance.Score += 175;
-        Destroy(gameObject);
+        Destroy(rb.gameObject);
 
     }
 

@@ -6,14 +6,14 @@ public class enemy_turret_ai : Enemy
 {
     public float angleBetween = 0.0f;
     public Transform createAt;
-
+    public float timeBetweenFire;
     public GameObject model;
 
     public GameObject rocketProjectile;
 
     public Transform ExplodeAt;
+    public float HP = 100.0f;
 
-    public float hp = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,7 @@ public class enemy_turret_ai : Enemy
         if (alive)
         {
             //hp -= 0.01f;
-            if (hp <= 0)
+            if (HP <= 0)
             {
                 StartCoroutine(Dying());
             }
@@ -38,7 +38,7 @@ public class enemy_turret_ai : Enemy
 
             elapsed += Time.deltaTime;
 
-            if (elapsed > 10.0f)
+            if (elapsed > timeBetweenFire)
             {
                 shoot(elapsed);
                 elapsed = 0.0f;
@@ -48,19 +48,43 @@ public class enemy_turret_ai : Enemy
 
     }
 
+    public override void ChangeHP(float changeBy)
+    {
+        HP += changeBy;
+    }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
         {
-            hp -= 10;
+            HP -= 10;
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
         {
-            hp -= 10;
+            HP -= 10;
             ExplodeAt.position = other.GetContact(0).point;
         }
     }
@@ -85,9 +109,12 @@ public class enemy_turret_ai : Enemy
 
     IEnumerator Dying()
     {
+        DisableColliders();
         alive = false;
         PlayerStats.Instance.Score += 100;
         explosion.Play();
+        if (!slicedCopy)
+            blastSound.Play();
         yield return null;
 
         GetComponent<Rigidbody>().useGravity = true;
@@ -96,10 +123,16 @@ public class enemy_turret_ai : Enemy
             GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
             yield return null;
         }
-
+        if(spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
         GetComponent<Rigidbody>().isKinematic = true;
         Destroy(model);
         explosion.Play();
+        if (!slicedCopy)
+            blastSound.Play();
+
         while (explosion.isPlaying)
         {
             yield return null;

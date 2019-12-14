@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject curr_enemy;
-    protected int curr_enemy_value;
+    public GameObject currEnemy;
+    protected int currEnemyValue;
 
     [Header("Prefabs")]
     public GameObject interceptor;
@@ -17,9 +17,10 @@ public class EnemySpawner : MonoBehaviour
     public SpawnerParent parent;
     [Header("Misc")]
     public float elapsed = 0.0f;
-    public GameObject entrance_effect;
-    public GameObject curr_effect;
-    public float effect_time = 0.0f;
+    public GameObject entranceEffect;
+    public AudioSource entranceAudio;
+    public GameObject currEffect;
+    public float effectTime = 0.0f;
     public bool enabledSpawner { get { return (parent != null && parent.waveEnabled); } }
 
     // Start is called before the first frame update
@@ -27,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     {
         transform.LookAt(target);
         elapsed = Time.deltaTime;
-        effect_time = Time.deltaTime;
+        effectTime = Time.deltaTime;
     }
 
     // Update is called once per frame
@@ -36,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
         if (enabledSpawner)
         {
             spawn();
-            effect_time += Time.deltaTime;
+            effectTime += Time.deltaTime;
 
             elapsed += Time.deltaTime;
         }
@@ -44,70 +45,72 @@ public class EnemySpawner : MonoBehaviour
 
     public virtual void spawn(int enemy_gen)
     {
-        if (!curr_enemy)
+        if (!currEnemy)
         {
-            if (entrance_effect != null)
+            if (entranceEffect != null)
             {
-                entrance_effect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
-                entrance_effect.transform.position = transform.position;
+                entranceEffect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
+                entranceEffect.transform.position = transform.position;
+                entranceAudio.Play();
             }
 
             if (enemy_gen == 0)
             {
-                curr_enemy = Instantiate(interceptor) as GameObject;
-                curr_enemy.GetComponent<enemy_ship_ai>().set_target(target);
-                curr_enemy_value = 0;
+                currEnemy = Instantiate(interceptor) as GameObject;
+                currEnemy.GetComponent<enemy_ship_ai>().set_target(target);
+                currEnemyValue = 0;
             }
 
             else if (enemy_gen == 1)
             {
-                curr_enemy = Instantiate(drone) as GameObject;
-                curr_enemy.GetComponent<enemy_drone_ai>().set_target(target);
-                curr_enemy_value = 1;
+                currEnemy = Instantiate(drone) as GameObject;
+                currEnemy.GetComponent<enemy_drone_ai>().set_target(target);
+                currEnemyValue = 1;
             }
             else if (enemy_gen == 2)
             {
-                curr_enemy = Instantiate(turret) as GameObject;
-                curr_enemy.GetComponent<enemy_turret_ai>().set_target(target);
-                curr_enemy.GetComponent<enemy_turret_ai>().set_values(target);
-                curr_enemy_value = 2;
+                currEnemy = Instantiate(turret) as GameObject;
+                currEnemy.GetComponent<enemy_turret_ai>().set_target(target);
+                currEnemy.GetComponent<enemy_turret_ai>().set_values(target);
+                currEnemyValue = 2;
             }
-            curr_enemy.transform.position = transform.position;
+            currEnemy.transform.position = transform.position;
+            currEnemy.GetComponent<Enemy>().spawner = this;
         }
     }
 
     public virtual void spawn()
     {
-        if (!curr_enemy) {
+        if (!currEnemy) {
             int enemy_gen = Random.Range(0, 3);
             //curr_effect.SetActive(true);
-            if (entrance_effect != null)
+            if (entranceEffect != null)
             {
-                entrance_effect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
-                entrance_effect.transform.position = transform.position;
+                entranceEffect.GetComponent<PlayParticleEffectOnce>().PlayParticleSys();
+                entranceEffect.transform.position = transform.position;
             }
 
             if (enemy_gen == 0)
             {
-                curr_enemy = Instantiate(interceptor) as GameObject;
-                curr_enemy.GetComponent<enemy_ship_ai>().set_target(target);
-                curr_enemy_value = 0;
+                currEnemy = Instantiate(interceptor) as GameObject;
+                currEnemy.GetComponent<enemy_ship_ai>().set_target(target);
+                currEnemyValue = 0;
             }
 
             else if (enemy_gen == 1)
             {
-                curr_enemy = Instantiate(drone) as GameObject;
-                curr_enemy.GetComponent<enemy_drone_ai>().set_target(target);
-                curr_enemy_value = 1;
+                currEnemy = Instantiate(drone) as GameObject;
+                currEnemy.GetComponent<enemy_drone_ai>().set_target(target);
+                currEnemyValue = 1;
             }
             else if (enemy_gen == 2)
             {
-                curr_enemy = Instantiate(turret) as GameObject;
-                curr_enemy.GetComponent<enemy_turret_ai>().set_target(target);
-                curr_enemy.GetComponent<enemy_turret_ai>().set_values(target);
-                curr_enemy_value = 2;
+                currEnemy = Instantiate(turret) as GameObject;
+                currEnemy.GetComponent<enemy_turret_ai>().set_target(target);
+                currEnemy.GetComponent<enemy_turret_ai>().set_values(target);
+                currEnemyValue = 2;
             }
-            curr_enemy.transform.position = transform.position;
+            currEnemy.transform.position = transform.position;
         }
 
     }
@@ -115,32 +118,32 @@ public class EnemySpawner : MonoBehaviour
     // Returns "current enemy is dead" as true or false
     public bool getEndOfWave()
     {
-        return !curr_enemy;
+        return !currEnemy;
     }
 
     protected void check_death() {
-        if (curr_enemy_value == 0)
+        if (currEnemyValue == 0)
         {
-            if (curr_enemy.GetComponent<enemy_ship_ai>().get_alive()) 
+            if (currEnemy.GetComponent<enemy_ship_ai>().get_alive()) 
             {
-                curr_enemy = null;
-                effect_time = 0.0f;
+                currEnemy = null;
+                effectTime = 0.0f;
             }
         }
-        else if (curr_enemy_value == 1)
+        else if (currEnemyValue == 1)
         {
-            if (curr_enemy.GetComponent<enemy_drone_ai>().get_alive())
+            if (currEnemy.GetComponent<enemy_drone_ai>().get_alive())
             {
-                curr_enemy = null;
-                effect_time = 0.0f;
+                currEnemy = null;
+                effectTime = 0.0f;
             }
         }
-        else if(curr_enemy_value == 2) 
+        else if(currEnemyValue == 2) 
         {
-            if (curr_enemy.GetComponent<enemy_turret_ai>().get_alive())
+            if (currEnemy.GetComponent<enemy_turret_ai>().get_alive())
             {
-                curr_enemy = null;
-                effect_time = 0.0f;
+                currEnemy = null;
+                effectTime = 0.0f;
             }
         }
     }

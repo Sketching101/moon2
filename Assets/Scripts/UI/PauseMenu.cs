@@ -5,20 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-
     public static bool isPaused = false;
     public GameObject pauseMenu;
 
     // Start is called before the first frame update
     void Start()
     {
-        pauseMenu.SetActive(false);
+        isPaused = false;
+        if(pauseMenu != null)
+            pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.RawButton.Start))
         {
             //Debug.Log("PauseMenu.cs: Toggling Pause Menu");
             if (isPaused)

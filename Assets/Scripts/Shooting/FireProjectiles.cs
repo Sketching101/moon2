@@ -140,7 +140,7 @@ public class FireProjectiles : MonoBehaviour
             GameObject clone = Instantiate(rocketProjectile, SpawnPos.position, rot) as GameObject;
             clone.GetComponent<RocketController>().TargetPosition = TargetPos;
 
-            clone.GetComponent<Rigidbody>().velocity = dir * 500;
+            clone.GetComponent<Rigidbody>().velocity = dir * (500 + mechController.velocity_display);
 
             SFXManager.Instance.PlayClip(2 + RocketTurn);
         }

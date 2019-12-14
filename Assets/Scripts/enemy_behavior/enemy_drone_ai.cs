@@ -5,9 +5,8 @@ using UnityEngine;
 public class enemy_drone_ai : Enemy
 {
     public float angleBetween = 0.0f;
+    public float HP = 20.0f;
 
-
-    public float hp = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +21,7 @@ public class enemy_drone_ai : Enemy
         if (alive)
         {
             //hp -= 0.01f
-            if (hp <= 0)
+            if (HP <= 0)
             {
                 PlayerStats.Instance.Score += 50;
                 StartCoroutine(Dying());
@@ -52,9 +51,26 @@ public class enemy_drone_ai : Enemy
 
     }
 
+    public override void ChangeHP(float changeBy)
+    {
+        HP += changeBy;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        hp -= 10;
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+            }
+            explosion.Play();
+            blastSound.Play();
+        }
+
+        HP -= 10;
+
         if (other.gameObject.tag == "Player" && alive)
         {
             alive = false;
@@ -65,8 +81,18 @@ public class enemy_drone_ai : Enemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
-            hp -= 10;
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+            }
+            explosion.Play();
+            blastSound.Play();
+        }
+
+        HP -= 10;
 
         if (other.gameObject.tag == "Player" && alive)
         {
@@ -78,16 +104,22 @@ public class enemy_drone_ai : Enemy
 
     private void explode()
     {
-        hp -= 20;
+        HP -= 20;
     }
 
     IEnumerator Dying()
     {
+        DisableColliders();
         alive = false;
-        blastSound.Play();
+        if(!slicedCopy)
+            blastSound.Play();
         explosion.Play();
+        if (spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
         yield return null;
-        GetComponent<MeshRenderer>().enabled = false;
+        mesh.enabled = false;
         while (explosion.isPlaying)
         {
 

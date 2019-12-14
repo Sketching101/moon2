@@ -65,7 +65,7 @@ public class GameFlow : MonoBehaviour
         score.GetComponent<Text>().text = currentScore.ToString();
         pauseMenuScore.GetComponent<Text>().text = currentScore.ToString();
         nextLevelScore.GetComponent<Text>().text = currentScore.ToString();
-        healthPoints.GetComponent<Text>().text = currentHP + " / 1000";
+        healthPoints.GetComponent<Text>().text = currentHP.ToString().Split('.')[0] + " / 1000";
 
         //Death State
         if (currentHP <= 0)
