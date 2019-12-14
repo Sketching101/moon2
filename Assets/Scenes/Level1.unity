@@ -4752,6 +4752,21 @@ PrefabInstance:
       propertyPath: distMul
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8908093058835594137, guid: b958aef20d463504c836015555f5cf80,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908093058835594137, guid: b958aef20d463504c836015555f5cf80,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.034179688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908093058835594137, guid: b958aef20d463504c836015555f5cf80,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0241699
+      objectReference: {fileID: 0}
     - target: {fileID: 282190218, guid: b958aef20d463504c836015555f5cf80, type: 3}
       propertyPath: maxTime
       value: 2
@@ -4794,6 +4809,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 483894093, guid: b958aef20d463504c836015555f5cf80, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4971184697363161198, guid: aa53e4194ff904a4e971d3005d22bdf8,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b958aef20d463504c836015555f5cf80, type: 3}
 --- !u!82 &391912254 stripped
@@ -4841,6 +4861,18 @@ AudioSource:
 --- !u!82 &391912261 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8839340886176853175, guid: b958aef20d463504c836015555f5cf80,
+    type: 3}
+  m_PrefabInstance: {fileID: 391912253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &391912262 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7067936798377288559, guid: b958aef20d463504c836015555f5cf80,
+    type: 3}
+  m_PrefabInstance: {fileID: 391912253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &391912263 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1801976768, guid: b958aef20d463504c836015555f5cf80,
     type: 3}
   m_PrefabInstance: {fileID: 391912253}
   m_PrefabAsset: {fileID: 0}
@@ -17483,12 +17515,12 @@ PrefabInstance:
         type: 3}
       propertyPath: SourceSFX.Array.data[10]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 391912263}
     - target: {fileID: 114390490241037870, guid: 1c9f1d25658e8094b995e6cf7f29d001,
         type: 3}
       propertyPath: SourceSFX.Array.data[11]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 391912262}
     - target: {fileID: 114497119087949654, guid: 1c9f1d25658e8094b995e6cf7f29d001,
         type: 3}
       propertyPath: MusicSpeakers

@@ -74,12 +74,33 @@ public class enemy_ship_ai : Enemy
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
             HP -= 10;
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.tag == "bullet" && alive)
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+                explosion.Play();
+                blastSound.Play();
+            }
+
+        }
         if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
             HP -= 10;
     }
@@ -105,8 +126,8 @@ public class enemy_ship_ai : Enemy
 
     IEnumerator Dying()
     {
-        DisableColliders();
         alive = false;
+        DisableColliders();
         PlayerStats.Instance.Score += 170;
         explosion.Play();
         if (!slicedCopy)

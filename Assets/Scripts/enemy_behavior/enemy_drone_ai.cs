@@ -58,13 +58,15 @@ public class enemy_drone_ai : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "bullet")
+        if (other.gameObject.tag == "bullet" && alive)
         {
             HP -= 10;
             if (other.gameObject.GetComponent<RocketController>() != null)
             {
                 HP -= 10;
             }
+            explosion.Play();
+            blastSound.Play();
         }
 
         HP -= 10;
@@ -79,13 +81,15 @@ public class enemy_drone_ai : Enemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "bullet")
+        if (other.gameObject.tag == "bullet" && alive)
         {
             HP -= 10;
             if (other.gameObject.GetComponent<RocketController>() != null)
             {
                 HP -= 10;
             }
+            explosion.Play();
+            blastSound.Play();
         }
 
         HP -= 10;
