@@ -1,0 +1,109 @@
+﻿using BzKovSoft.ObjectSlicer;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using UnityEngine;
+
+public class SliceableAsteroid : BzSliceableObjectBase, IBzSliceableNoRepeat
+{
+    [HideInInspector]
+    [SerializeField]
+    int _sliceId;
+    [HideInInspector]
+    [SerializeField]
+    float _lastSliceTime = float.MinValue;
+    /// <summary>
+    /// If your code do not use SliceId, it can relay on delay between last slice and new.
+    /// If real delay is less than this value, slice will be ignored
+    /// </summary>
+    public float delayBetweenSlices = 1f;
+
+    public void Slice(Plane plane, int sliceId, Action<BzSliceTryResult> callBack)
+    {
+        float currentSliceTime = Time.time;
+
+        // we should prevent slicing same object:
+        // - if _delayBetweenSlices was not exceeded
+        // - with the same sliceId
+        if ((sliceId == 0 & _lastSliceTime + delayBetweenSlices > currentSliceTime) |
+            (sliceId != 0 & _sliceId == sliceId))
+        {
+            return;
+        }
+
+        // exit if it has LazyActionRunner
+        if (GetComponent<LazyActionRunner>() != null)
+            return;
+
+        _lastSliceTime = currentSliceTime;
+        _sliceId = sliceId;
+
+        Slice(plane, callBack);
+    }
+    protected override BzSliceTryData PrepareData(Plane plane)
+    {
+        // remember some data. Later we could use it after the slice is done.
+        // here I add Stopwatch object to see how much time it takes
+        // and vertex count to display.
+        ResultData addData = new ResultData();
+
+        // count vertices
+        var filters = GetComponentsInChildren<MeshFilter>();
+        for (int i = 0; i < filters.Length; i++)
+        {
+            addData.vertexCount += filters[i].sharedMesh.vertexCount;
+        }
+
+        // remember start time
+        addData.stopwatch = Stopwatch.StartNew();
+
+        // colliders that will be participating in slicing
+        var colliders = gameObject.GetComponentsInChildren<Collider>();
+
+        // return data
+        return new BzSliceTryData()
+        {
+            // componentManager: this class will manage components on sliced objects
+            componentManager = new StaticComponentManager(gameObject, plane, colliders),
+            plane = plane,
+            addData = addData,
+        };
+    }
+
+    protected override void GetNewObjects(out GameObject resultObjNeg, out GameObject resultObjPos)
+    {
+        resultObjNeg = this.gameObject;
+        resultObjPos = Instantiate(this.gameObject, this.gameObject.transform.parent);
+
+        Rigidbody rbN = resultObjNeg.GetComponent<Rigidbody>();
+        Rigidbody rbP = resultObjPos.GetComponent<Rigidbody>();
+        Vector3 comN = rbN.centerOfMass;
+        Vector3 comP = rbP.centerOfMass;
+
+        Vector3 middle = (comN + comP) / 2;
+        Vector3 dir = (comN - middle).normalized;
+
+        resultObjNeg.GetComponent<Shootable>().Sliced(dir);
+        resultObjPos.GetComponent<Shootable>().Sliced(dir * -1);
+
+        resultObjPos.name = resultObjNeg.name + "_pos";
+        resultObjNeg.name = resultObjNeg.name + "_neg";
+    }
+
+    protected override void OnSliceFinished(BzSliceTryResult result)
+    {
+        if (!result.sliced)
+            return;
+
+    }
+
+    // DTO that we pass to slicer and then receive back
+    class ResultData
+    {
+        public int vertexCount;
+        public Stopwatch stopwatch;
+    }
+    
+}

@@ -14,6 +14,8 @@ public class NavigateVolume : MonoBehaviour
     private bool canSwitch;
     float change;
 
+    public bool isMainMenu = false;
+
     private void Awake()
     {
         SwitchDisplay(activeDisplay);
@@ -22,7 +24,7 @@ public class NavigateVolume : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!PauseMenu.isPaused)
+        if(!PauseMenu.isPaused && !isMainMenu)
             return;
 
         timeSinceSwitch += Time.unscaledDeltaTime;

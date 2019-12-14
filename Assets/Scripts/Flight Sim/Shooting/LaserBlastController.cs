@@ -19,4 +19,13 @@ public class LaserBlastController : MonoBehaviour {
         if (time_t > LifeTime)
             Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Rigidbody rb;
+        if((rb = other.GetComponent<Rigidbody>()) != null)
+        {
+            rb.AddForce(GetComponent<Rigidbody>().velocity.normalized * 10000);
+        }
+    }
 }

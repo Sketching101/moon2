@@ -75,6 +75,7 @@ public class EnemySpawner : MonoBehaviour
                 currEnemyValue = 2;
             }
             currEnemy.transform.position = transform.position;
+            currEnemy.GetComponent<Enemy>().spawner = this;
         }
     }
 

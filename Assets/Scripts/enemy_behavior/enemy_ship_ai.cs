@@ -12,7 +12,6 @@ public class enemy_ship_ai : Enemy
     public GameObject rocketProjectile;
     public bool moving_right = true;
 
-
     public Transform ExplodeAt;
 
     public float HP = 20.0f;
@@ -110,27 +109,34 @@ public class enemy_ship_ai : Enemy
         alive = false;
         PlayerStats.Instance.Score += 170;
         explosion.Play();
-        blastSound.Play();
+        if (!slicedCopy)
+            blastSound.Play();
         yield return null;
 
-        GetComponent<Rigidbody>().useGravity = true;
+
+
+        rb.useGravity = true;
         while (explosion.isPlaying)
         {
-            GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
+            rb.AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
             yield return null;
         }
-
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<MeshRenderer>().enabled = false;
+        if (spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
+        rb.isKinematic = true;
+        mesh.enabled = false;
         explosion.Play();
-        blastSound.Play();
+        if (!slicedCopy)
+            blastSound.Play();
 
         while (explosion.isPlaying)
         {
             yield return null;
         }
 
-        Destroy(gameObject);
+        Destroy(rb.gameObject);
 
     }
 

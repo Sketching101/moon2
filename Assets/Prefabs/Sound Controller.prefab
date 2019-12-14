@@ -1,26 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1700747975759148}
-  m_IsPrefabAsset: 1
 --- !u!1 &1700747975759148
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4709915387245312}
   - component: {fileID: 114390490241037870}
   - component: {fileID: 114497119087949654}
+  - component: {fileID: 305844267}
   m_Layer: 0
   m_Name: Sound Controller
   m_TagString: Untagged
@@ -30,11 +21,12 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4709915387245312
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700747975759148}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1396.3884, y: -706.7527, z: 1288.1804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -43,9 +35,10 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114390490241037870
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700747975759148}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -59,11 +52,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  audioMixer: {fileID: -4971184697363161198, guid: aa53e4194ff904a4e971d3005d22bdf8,
+    type: 2}
 --- !u!114 &114497119087949654
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700747975759148}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -77,3 +79,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2e0d97a5ad0448d438cfb5a8bd524b5c, type: 3}
   YouAreDead: {fileID: 8300000, guid: 9154a16d47f7bf14faed9cace78b39a4, type: 3}
   MusicSpeakers: {fileID: 0}
+  audioMixer: {fileID: 5432204681306847971, guid: aa53e4194ff904a4e971d3005d22bdf8,
+    type: 2}
+  DontPlay: 0
+--- !u!114 &305844267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700747975759148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa0a8cc8f903644b8d1e8c272443eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: aa53e4194ff904a4e971d3005d22bdf8, type: 2}
+  testAudio: 0

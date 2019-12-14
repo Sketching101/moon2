@@ -28972,7 +28972,7 @@ MonoBehaviour:
     type: 3}
   moving_right: 1
   ExplodeAt: {fileID: 1420048622}
-  hp: 5
+  HP: 20
 --- !u!114 &2512912284727998591
 MonoBehaviour:
   m_ObjectHideFlags: 0

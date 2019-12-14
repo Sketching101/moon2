@@ -92,6 +92,9 @@ GameObject:
   - component: {fileID: 3653568476175567950}
   - component: {fileID: 2652744285487293824}
   - component: {fileID: 7109903861907801342}
+  - component: {fileID: 26558457713956393}
+  - component: {fileID: 4871686016584106957}
+  - component: {fileID: 6018548278061141197}
   m_Layer: 8
   m_Name: Asteroid 2
   m_TagString: Untagged
@@ -158,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Highlight: {fileID: 5767662891781131645}
+  rb: {fileID: 0}
   explosionVFX: {fileID: 3316538057058956185}
   RealObj: {fileID: 185484}
   visible: 1
@@ -169,7 +173,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141316}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4f46d2bf78001c04ca88c358d2150118, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.1
@@ -185,7 +189,8 @@ AudioSource:
   m_GameObject: {fileID: 141316}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4971184697363161198, guid: aa53e4194ff904a4e971d3005d22bdf8,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 986d6b30567e30e428f3f21373fe45ca, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.239
@@ -344,6 +349,49 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &26558457713956393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4231669f3526949a4b889196486fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4871686016584106957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fcd990593bb06c4099e06c8ce935aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSliceMaterial: {fileID: 2100000, guid: 44f9d629006bb76409d3626dd82797c0,
+    type: 2}
+  asynchronously: 1
+  useLazyRunner: 0
+  _sliceId: 0
+  _lastSliceTime: -3.4028235e+38
+  delayBetweenSlices: 1
+--- !u!114 &6018548278061141197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b31ce38a2694587bc429b0e6274a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &146874
 GameObject:
   m_ObjectHideFlags: 0

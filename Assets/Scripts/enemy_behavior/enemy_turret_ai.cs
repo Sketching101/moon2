@@ -93,7 +93,8 @@ public class enemy_turret_ai : Enemy
         alive = false;
         PlayerStats.Instance.Score += 100;
         explosion.Play();
-        blastSound.Play();
+        if (!slicedCopy)
+            blastSound.Play();
         yield return null;
 
         GetComponent<Rigidbody>().useGravity = true;
@@ -102,11 +103,15 @@ public class enemy_turret_ai : Enemy
             GetComponent<Rigidbody>().AddForceAtPosition(ExplodeAt.right * 5, ExplodeAt.position);
             yield return null;
         }
-
+        if(spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
         GetComponent<Rigidbody>().isKinematic = true;
         Destroy(model);
         explosion.Play();
-        blastSound.Play();
+        if (!slicedCopy)
+            blastSound.Play();
 
         while (explosion.isPlaying)
         {

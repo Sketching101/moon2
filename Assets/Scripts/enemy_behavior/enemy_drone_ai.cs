@@ -58,7 +58,17 @@ public class enemy_drone_ai : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "bullet")
+        {
+            HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+            }
+        }
+
         HP -= 10;
+
         if (other.gameObject.tag == "Player" && alive)
         {
             alive = false;
@@ -69,8 +79,16 @@ public class enemy_drone_ai : Enemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag != "enemy_bullet" && other.gameObject.tag != "Enemy")
+        if (other.gameObject.tag == "bullet")
+        {
             HP -= 10;
+            if (other.gameObject.GetComponent<RocketController>() != null)
+            {
+                HP -= 10;
+            }
+        }
+
+        HP -= 10;
 
         if (other.gameObject.tag == "Player" && alive)
         {
@@ -89,10 +107,15 @@ public class enemy_drone_ai : Enemy
     {
         DisableColliders();
         alive = false;
-        blastSound.Play();
+        if(!slicedCopy)
+            blastSound.Play();
         explosion.Play();
+        if (spawner != null)
+        {
+            spawner.currEnemy = null;
+        }
         yield return null;
-        GetComponent<MeshRenderer>().enabled = false;
+        mesh.enabled = false;
         while (explosion.isPlaying)
         {
 

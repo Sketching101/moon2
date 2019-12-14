@@ -13,6 +13,8 @@ public class RocketController : MonoBehaviour {
     public AudioSource blastSound;
     public GameObject model;
 
+    public bool playerRocket;
+
     public bool alive;
 
 	// Use this for initialization
@@ -44,29 +46,36 @@ public class RocketController : MonoBehaviour {
         {
             return;
         }
-        if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject
-            && (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet"))
-        {
-            StartCoroutine(Dying());
-        }
-        if (collision.gameObject.tag == "Player" && alive)
-        {
-            PlayerStats.Instance.HP -= 50;
-            StartCoroutine(Dying());
+        if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject) {
+            if (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet")
+            {
+                StartCoroutine(Dying());
+            }
+            else if (collision.gameObject.tag == "Player" && !playerRocket)
+            {
+                PlayerStats.Instance.AddHP(-50); ;
+                StartCoroutine(Dying());
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(!alive)
+        if (!alive)
         {
             return;
         }
-
-        if (collision.gameObject.tag == "Player" && alive)
+        if (blastSound != null && explosion != null && model != null && collision.gameObject != gameObject)
         {
-            PlayerStats.Instance.HP -= 50;
-            StartCoroutine(Dying());
+            if (collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Blade" || collision.gameObject.tag == "enemy_bullet")
+            {
+                StartCoroutine(Dying());
+            }
+            else if (collision.gameObject.tag == "Player" && !playerRocket)
+            {
+                PlayerStats.Instance.AddHP(-50);
+                StartCoroutine(Dying());
+            }
         }
     }
 
