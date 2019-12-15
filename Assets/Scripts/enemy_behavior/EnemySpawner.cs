@@ -60,19 +60,18 @@ public class EnemySpawner : MonoBehaviour
                 currEnemy.GetComponent<enemy_ship_ai>().set_target(target);
                 currEnemyValue = 0;
             }
-
             else if (enemy_gen == 1)
-            {
-                currEnemy = Instantiate(drone) as GameObject;
-                currEnemy.GetComponent<enemy_drone_ai>().set_target(target);
-                currEnemyValue = 1;
-            }
-            else if (enemy_gen == 2)
             {
                 currEnemy = Instantiate(turret) as GameObject;
                 currEnemy.GetComponent<enemy_turret_ai>().set_target(target);
                 currEnemy.GetComponent<enemy_turret_ai>().set_values(target);
                 currEnemyValue = 2;
+            }
+            else if (enemy_gen == 2)
+            {
+                currEnemy = Instantiate(drone) as GameObject;
+                currEnemy.GetComponent<enemy_drone_ai>().set_target(target);
+                currEnemyValue = 1;
             }
             currEnemy.transform.position = transform.position;
             currEnemy.GetComponent<Enemy>().spawner = this;

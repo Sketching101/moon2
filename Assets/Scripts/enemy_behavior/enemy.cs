@@ -20,6 +20,14 @@ public class Enemy : MonoBehaviour
 
     public bool alive;
 
+    protected virtual void Update()
+    {
+        if (!PlayerBounds.Instance.InBoundsCheck(transform))
+        {
+            ChangeHP(-1 * PlayerBounds.Instance.damage * Time.deltaTime);
+        }
+    }
+
     protected void DisableColliders()
     {
         foreach(Collider col in colliders)

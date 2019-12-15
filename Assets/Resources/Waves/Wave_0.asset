@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyCount: 3
   EnemiesToSpawn:
-  - EnemyType: Interceptor
   - EnemyType: Turret
   - EnemyType: Drone
+  - EnemyType: Interceptor

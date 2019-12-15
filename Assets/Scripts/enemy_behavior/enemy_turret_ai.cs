@@ -23,8 +23,9 @@ public class enemy_turret_ai : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if (alive)
         {
             //hp -= 0.01f;

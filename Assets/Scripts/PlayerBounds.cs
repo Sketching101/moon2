@@ -49,4 +49,23 @@ public class PlayerBounds : MonoBehaviour
             PlayerStats.Instance.HP -= damage * Time.deltaTime;
         }
     }
+
+    public bool InBoundsCheck(Transform tr)
+    {
+        bool inBoundsBuf = true;
+        int len = Surfaces.Length;
+        for (int i = 0; i < len; i += 2)
+        {
+            Vector3 dist1 = (tr.position - Surfaces[i].position);
+            Vector3 dist2 = (tr.position - Surfaces[i + 1].position);
+            Vector3 betweenPlanes = (Surfaces[i].position - Surfaces[i + 1].position);
+            dot1 = Vector3.Dot(Vector3.Project(dist1, betweenPlanes), Vector3.Project(dist2, betweenPlanes));
+            if (dot1 > 0)
+            {
+                inBoundsBuf = false;
+                break;
+            }
+        }
+        return inBoundsBuf;
+    }
 }

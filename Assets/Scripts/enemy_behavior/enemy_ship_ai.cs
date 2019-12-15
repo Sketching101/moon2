@@ -25,8 +25,9 @@ public class enemy_ship_ai : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         if (alive)
         {
             if (HP <= 0)
